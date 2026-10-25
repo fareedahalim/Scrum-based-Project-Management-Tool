@@ -56,4 +56,71 @@ export const API_ROUTES = {
         DELETE_TEAM: (teamId: string) => `/teams/${teamId}`,
     },
 
+    
+    PROJECT: {
+        CREATE_PROJECT: "/projects",
+        GET_PROJECTS: "/projects",
+        GET_PROJECT_BY_ID: (projectId: string) =>
+            `/projects/${projectId}`,
+        UPDATE_PROJECT: (projectId: string) =>
+            `/projects/${projectId}`,
+        ARCHIVE_PROJECT: (projectId: string) =>
+            `/projects/${projectId}/archive`,
+
+        GET_PROJECT_MEMBERS: (projectId: string) =>
+            `/projects/${projectId}/members`,
+        ADD_PROJECT_MEMBERS: (projectId: string) =>
+            `/projects/${projectId}/members`,
+        UPDATE_SCRUM_ROLE: (
+            projectId: string,
+            userId: string
+        ) => `/projects/${projectId}/members/${userId}`,
+        REMOVE_PROJECT_MEMBER: (
+            projectId: string,
+            userId: string
+        ) => `/projects/${projectId}/members/${userId}`,
+        GET_AVAILABLE_MEMBERS: (projectId: string) =>
+            `/projects/${projectId}/available-members`,
+    },
+
+        EPIC: {
+        CREATE_EPIC: (projectId: string) =>
+            `/projects/${projectId}/epics`,
+
+        GET_EPICS_BY_PROJECT: (projectId: string) =>
+            `/projects/${projectId}/epics`,
+
+        UPDATE_EPIC: (projectId: string, epicId: string) =>
+            `/projects/${projectId}/epics/${epicId}`,
+
+        ARCHIVE_EPIC: (projectId: string, epicId: string) =>
+            `/projects/${projectId}/epics/${epicId}/archive`,
+    },
+
+    
+    STORY: {
+        CREATE_STORY: (projectId: string) =>
+            `/projects/${projectId}/stories`,
+
+        GET_STORIES_BY_PROJECT: (projectId: string) =>
+            `/projects/${projectId}/stories`,
+
+        GET_STORIES_BY_EPIC: (
+            projectId: string,
+            epicId: string
+        ) => `/projects/${projectId}/epics/${epicId}/stories`,
+
+        UPDATE_STORY: (
+            projectId: string,
+            storyId: string
+        ) => `/projects/${projectId}/stories/${storyId}`,
+
+        ARCHIVE_STORY: (
+            projectId: string,
+            storyId: string
+        ) => `/projects/${projectId}/stories/${storyId}/archive`,
+    },
+
+
+
 }

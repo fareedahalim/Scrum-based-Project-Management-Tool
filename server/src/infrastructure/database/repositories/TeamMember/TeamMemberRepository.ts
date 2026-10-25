@@ -160,4 +160,29 @@ async findMembershipByUser(
             ),
         ];
     }
+
+    async getAssignedUserIdsByTeam(
+    teamId: string
+): Promise<string[]> {
+    const activeTeam = await TeamModel.exists({
+        _id: teamId,
+        isDeleted: false,
+    });
+
+    if (!activeTeam) {
+        return [];
+    }
+
+    const memberships = await TeamMemberModel.find({
+        teamId,
+    }).select("userId");
+
+    return [
+        ...new Set(
+            memberships.map((membership) =>
+                membership.userId.toString()
+            )
+        ),
+    ];
+}
 }

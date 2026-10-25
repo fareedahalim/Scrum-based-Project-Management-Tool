@@ -112,3 +112,66 @@ export const TEAM_ERRORS = {
     USER_ALREADY_BELONGS_TO_TEAM: "This user already belongs to another team",
 
 }
+
+export const PROJECT_ERRORS = {
+    PROJECT_NAME_REQUIRED: "Project name is missing",
+    PROJECT_KEY_REQUIRED: "Project key is missing",
+    PROJECT_ALREADY_EXISTS: "A project with the same key already exists",
+    PROJECT_NOT_FOUND: 'The project does not exist or is unavailable',
+    PROJECT_CREATION_FAILED: "Project creation failed",
+    PROJECTS_FETCH_FAILED: "Fetching projects failed",
+    PROJECT_FETCH_FAILED: "Fetching one project failed",
+    PROJECT_UPDATION_FAILED: "Updating a project failed",
+    ARCHIEVED_PROJECT_CAN_NOT_UPDATE: "Archived projects cannot be updated.",
+    PROJECT_ACCESS_DENIED: "User does not have permission to access the project",
+    PROJECT_ARCHIVE_FAILED: "Archiving the project failed",
+    PROJECT_ALREADY_ARCHIEVED:"Project is already archived.",
+    PROJECT_TEAM_NOT_FOUND: "The assigned team does not exist",
+    PROJECT_MEMBER_ALREADY_EXISTS: "User is already assigned to the project",
+    PROJECT_MEMBER_NOT_FOUND: "User is not a member of the project",
+    PROJECT_MEMBER_ASSIGNMENT_FAILED: "Assigning a project member failed",
+    PROJECT_CREATOR_INVALID: "Creator missing or inactive",
+    PROJECT_TEAM_ALREADY_ASSIGNED: "Team already assigned to an unfinished project",
+    PROJECT_ROLE_ASSIGNMENT_CONFLICT: "Product Owner and Scrum Master are the same user",
+    PROJECT_ADDITIONAL_DUPLICATE_MEMBER_NOT_ALLOWED:"Duplicate additional member IDs are not allowed",
+    PROJECT_PRODUCT_OWNER_SCRUM_MASTER_NOT_REPEATED_AS_ADDITIONAL_MEMBERS: "Product Owner and Scrum Master must not be repeated as additional members.",
+    PROJECT_END_DATE_CAN_NOT_EARLIER_THAN_START_DATE: "End date cannot be earlier than start date."
+
+
+
+}
+
+
+export const EPIC_ERRORS = {
+    EPIC_NOT_FOUND: "Epic not found.",
+    EPIC_CREATION_FAILED: "Failed to create epic.",
+    EPIC_FETCH_FAILED: "Failed to fetch epic.",
+    EPICS_FETCH_FAILED: "Failed to fetch epics.",
+    EPIC_UPDATION_FAILED: "Failed to update epic.",
+    EPIC_ARCHIVE_FAILED: "Failed to archive epic.",
+    EPIC_ALREADY_ARCHIVED: "Epic is already archived.",
+    EPIC_TITLE_REQUIRED: "Epic title is required.",
+    EPIC_PROJECT_NOT_FOUND: "Project not found.",
+};
+
+export const STORY_ERRORS = {
+    STORY_NOT_FOUND: "Story not found.",
+    STORY_CREATION_FAILED: "Failed to create story.",
+    STORIES_FETCH_FAILED: "Failed to fetch stories.",
+    STORY_UPDATION_FAILED: "Failed to update story.",
+    STORY_ARCHIVE_FAILED: "Failed to archive story.",
+    STORY_ALREADY_ARCHIVED: "Story is already archived.",
+    STORY_TITLE_REQUIRED: "Story title is required.",
+    STORY_DESCRIPTION_REQUIRED: "Story description is required.",
+    STORY_POINTS_INVALID:
+        "Story points must be 1, 2, 3, 5, 8, 13, or 21.",
+    STORY_PROJECT_NOT_FOUND: "Project not found.",
+    STORY_EPIC_NOT_FOUND: "Epic not found.",
+    STORY_EPIC_PROJECT_MISMATCH:
+        "Story's epic does not belong to its project.",
+    STORY_ARCHIVED_EPIC_NOT_ALLOWED:
+        "Cannot update a story under an archived epic.",
+    STORY_CREATE_UNDER_ARCHIVED_EPIC:
+        "Cannot create a story under an archived epic.",
+        
+};

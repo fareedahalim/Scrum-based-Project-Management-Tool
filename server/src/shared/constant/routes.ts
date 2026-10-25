@@ -50,4 +50,34 @@ export const ROUTES = {
         GET_MY_TEAM: "/my-team",
     },
 
+
+    PROJECT: {
+        CREATE_PROJECT: "/",
+        GET_PROJECTS: "/",
+        GET_PROJECT_BY_ID: "/:projectId",
+        UPDATE_PROJECT: "/:projectId",
+        ARCHIVE_PROJECT: "/:projectId/archive",
+        GET_PROJECT_MEMBERS: "/:projectId/members",
+        ADD_PROJECT_MEMBERS: "/:projectId/members",
+        UPDATE_SCRUM_ROLE: "/:projectId/members/:userId",
+        REMOVE_PROJECT_MEMBER: "/:projectId/members/:userId",
+        GET_AVAILABLE_MEMBERS: "/:projectId/available-members",
+
+    },
+
+    STORY: {
+        CREATE_STORY: "/projects/:projectId/stories",
+        GET_STORIES_BY_PROJECT: "/projects/:projectId/stories",
+        GET_STORIES_BY_EPIC: "/projects/:projectId/epics/:epicId/stories",
+        UPDATE_STORY: "/projects/:projectId/stories/:storyId",
+        ARCHIVE_STORY: "/projects/:projectId/stories/:storyId/archive",
+    },
+
+    EPIC: {
+        CREATE_EPIC: "/projects/:projectId/epics",
+        GET_EPICS_BY_PROJECT: "/projects/:projectId/epics",
+        UPDATE_EPIC: "/projects/:projectId/epics/:epicId",
+        ARCHIVE_EPIC: "/projects/:projectId/epics/:epicId/archive",
+    },
+
 }

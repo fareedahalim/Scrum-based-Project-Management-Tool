@@ -15,6 +15,14 @@ import { ITeamRepository } from "../../domain/interfaces/repositories/Team/ITeam
 import { TeamRepository } from "../../infrastructure/database/repositories/Team/TeamRepository";
 import { ITeamMemberRepository } from "../../domain/interfaces/repositories/TeamMember/ITeamMemberRepository";
 import { TeamMemberRepository } from "../../infrastructure/database/repositories/TeamMember/TeamMemberRepository";
+import { IProjectRepository } from "../../domain/interfaces/repositories/Project/IProjectRepository";
+import { ProjectRepository } from "../../infrastructure/database/repositories/Project/ProjectRepository";
+import { IProjectMemberRepository } from "../../domain/interfaces/repositories/ProjectMember/IProjectMemberRepository";
+import { ProjectMemberRepository } from "../../infrastructure/database/repositories/ProjectMember/ProjectMemberRepository";
+import { IEpicRepository } from "../../domain/interfaces/repositories/Epic/IEpicRepository";
+import { EpicRepository } from "../../infrastructure/database/repositories/Epic/EpicRepository";
+import { IStoryRepository } from "../../domain/interfaces/repositories/Story/IStoryRepository";
+import { StoryRepository } from "../../infrastructure/database/repositories/Story/StoryRepository";
 
 export class RepositoryModule {
     static registerModules(): void {
@@ -50,6 +58,20 @@ export class RepositoryModule {
             useClass:  TeamMemberRepository
         })
        
+        container.register<IProjectRepository>('IProjectRepository',{
+            useClass: ProjectRepository
+        })
+        container.register<IProjectMemberRepository>('IProjectMemberRepository',{
+            useClass: ProjectMemberRepository
+        })
+
+        container.register<IEpicRepository>('IEpicRepository',{
+            useClass: EpicRepository
+        })
+
+        container.register<IStoryRepository>("IStoryRepository",{
+            useClass: StoryRepository
+        })
         
         
 

@@ -22,7 +22,15 @@ export const FRONTEND_ROUTES = {
     TEAM_DETAILED_PAGE: "/teams/:teamId",
     MY_TEAM: "/my-team",
 
-     PROJECTS: "/projects",
-     NOTIFICATIONS: "/notifications",
-     SETTINGS: "/settings",
+    PROJECTS: "/projects",
+    PROJECT_DETAILS: "/projects/:projectId",
+    EDIT_PROJECT: '/projects/:projectId/edit',
+
+    PRODUCT_BACKLOG: "/projects/:projectId/backlog",
+    STORY_BACKLOG: "/projects/:projectId/stories",
+
+    NOTIFICATIONS: "/notifications",
+    SETTINGS: "/settings",
+
+
 } 

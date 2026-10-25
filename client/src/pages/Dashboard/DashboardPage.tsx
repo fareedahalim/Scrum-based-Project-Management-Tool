@@ -13,6 +13,7 @@ import type { RootState } from "../../store/store";
 import { useGetOrganization } from "../../hooks/Organization/OrganizationHooks";
 import OrganizationOverview from "../../components/Dashboard/OrganizationOverview";
 
+import ProductOwnerProjects from "../../components/Dashboard/ProductOwnerProjects";
 
 const DashboardPage = () => {
     const user = useSelector((state: RootState) => state.auth.user)
@@ -50,6 +51,9 @@ const DashboardPage = () => {
                         <WelcomeSection
                             firstName={user?.firstName ?? ""}
                         />
+
+                        <ProductOwnerProjects />
+                        
                          {organization && (
                             <OrganizationOverview
                             organization= {organization}

@@ -29,4 +29,6 @@ export interface ITeamMemberRepository {
   ): Promise<boolean>;
 
   getAssignedUserIds(): Promise<string[]>;
+
+  getAssignedUserIdsByTeam(teamId: string): Promise<string[]>;
 }

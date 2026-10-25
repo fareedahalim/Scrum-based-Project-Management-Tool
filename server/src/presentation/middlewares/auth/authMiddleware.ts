@@ -16,6 +16,8 @@ import { HTTP_STATUS } from "../../../domain/constants/httpStatus";
 import { JwtPayload } from "../../../domain/entities/Jwt/IJwtPayload";
 import { ITokenBlacklistRepository } from "../../../domain/interfaces/repositories/JwtBlackList/ITokenBlacklistRepository";
 import { IUserRepository } from "../../../domain/interfaces/repositories/User/IUserRepository";
+import { ProjectScrumRole } from "../../../domain/enums/ProjectScrumRole";
+import { IProjectMemberRepository } from "../../../domain/interfaces/repositories/ProjectMember/IProjectMemberRepository";
 
 export interface AuthRequest extends Request {
   user?: JwtPayload;
@@ -31,8 +33,12 @@ export class AuthMiddleware {
     private readonly _blacklistRepo: ITokenBlacklistRepository,
 
     @inject("IUserRepository")
-    private readonly _userRepository: IUserRepository
-  ) {}
+    private readonly _userRepository: IUserRepository,
+
+    @inject("IProjectMemberRepository")
+    private readonly _projectMemberRepository: IProjectMemberRepository,
+
+  ) { }
 
   authenticate = async (
     req: AuthRequest,
@@ -112,30 +118,127 @@ export class AuthMiddleware {
 
 
   authorizeAdmin = (
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction
-): void => {
-  try {
-    if (!req.user) {
-      res.status(HTTP_STATUS.UNAUTHORIZED).json({
-        message: ERROR_MESSAGES.UNAUTHORIZED,
-      });
-      return;
-    }
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ): void => {
+    try {
+      if (!req.user) {
+        res.status(HTTP_STATUS.UNAUTHORIZED).json({
+          message: ERROR_MESSAGES.UNAUTHORIZED,
+        });
+        return;
+      }
 
-    if (req.user.role !== "ADMIN") {
+      if (req.user.role !== "ADMIN") {
+        res.status(HTTP_STATUS.FORBIDDEN).json({
+          message: ERROR_MESSAGES.FORBIDDEN,
+        });
+        return;
+      }
+
+      next();
+    } catch (error) {
       res.status(HTTP_STATUS.FORBIDDEN).json({
         message: ERROR_MESSAGES.FORBIDDEN,
       });
-      return;
     }
+  };
 
-    next();
-  } catch (error) {
-    res.status(HTTP_STATUS.FORBIDDEN).json({
-      message: ERROR_MESSAGES.FORBIDDEN,
-    });
-  }
+  authorizeProjectRole = (requiredRole: ProjectScrumRole) => {
+    return async (
+      req: AuthRequest,
+      res: Response,
+      next: NextFunction
+    ): Promise<void> => {
+      try {
+        // 1. Ensure the user is authenticated
+        if (!req.user) {
+          res.status(HTTP_STATUS.UNAUTHORIZED).json({
+            message: ERROR_MESSAGES.UNAUTHORIZED,
+          });
+          return;
+        }
+
+        // 2. Get the project ID from the route
+        const projectId = req.params.projectId;
+
+        if (!projectId) {
+          res.status(HTTP_STATUS.BAD_REQUEST).json({
+            message: "Project ID is required.",
+          });
+          return;
+        }
+
+        // 3. Find the user's active membership in this project
+        const membership =
+          await this._projectMemberRepository.findMembership(
+            projectId as string,
+            req.user.userId
+          );
+
+        if (!membership) {
+          res.status(HTTP_STATUS.FORBIDDEN).json({
+            message: ERROR_MESSAGES.FORBIDDEN,
+          });
+          return;
+        }
+
+        // 4. Verify the required Scrum role
+        if (membership.scrumRole !== requiredRole) {
+          res.status(HTTP_STATUS.FORBIDDEN).json({
+            message: ERROR_MESSAGES.FORBIDDEN,
+          });
+          return;
+        }
+
+        // 5. Permission granted
+        next();
+      } catch (error) {
+        next(error);
+      }
+    };
+  };
+
+  authorizeProjectAccess = async (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        if (!req.user) {
+            res.status(HTTP_STATUS.UNAUTHORIZED).json({
+                message: ERROR_MESSAGES.UNAUTHORIZED,
+            });
+            return;
+        }
+
+        const projectId = req.params.projectId;
+
+        if (!projectId) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message: "Project ID is required.",
+            });
+            return;
+        }
+
+        const membership =
+            await this._projectMemberRepository.findMembership(
+                projectId as string,
+                req.user.userId
+            );
+
+        if (!membership) {
+            res.status(HTTP_STATUS.FORBIDDEN).json({
+                message: ERROR_MESSAGES.FORBIDDEN,
+            });
+            return;
+        }
+
+        next();
+    } catch (error) {
+        next(error);
+    }
 };
+
 }

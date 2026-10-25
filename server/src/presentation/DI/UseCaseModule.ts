@@ -69,6 +69,44 @@ import { IDeleteTeamUseCase } from "../../application/interface/team/IDeleteTeam
 import { DeleteTeamUseCase } from "../../application/useCases/team/DeleteTeamUseCase";
 import { IGetMyTeamUseCase } from "../../application/interface/team/IGetMyTeamUseCase";
 import { GetMyTeamUseCase } from "../../application/useCases/team/GetMyTeamUseCase";
+import { ICreateProjectUseCase } from "../../application/interface/project/ICreateProjectUseCase";
+import { CreateProjectUseCase } from "../../application/useCases/project/CreateProjectUseCase";
+import { IUpdateProjectUseCase } from "../../application/interface/project/IUpdateProjectUseCase";
+import { UpdateProjectUseCase } from "../../application/useCases/project/UpdateProjectUseCase";
+import { IGetProjectByIdUseCase } from "../../application/interface/project/IGetProjectByIdUseCase";
+import { GetProjectByIdUseCase } from "../../application/useCases/project/GetProjectByIdUseCase";
+import { GetAllProjectsUseCase } from "../../application/useCases/project/GetAllProjectsUseCase";
+import { IGetAllProjectsUseCase } from "../../application/interface/project/IGetAllProjectUseCase";
+import { IArchiveProjectUseCase } from "../../application/interface/project/IArchiveProjectUseCase";
+import { ArchiveProjectUseCase } from "../../application/useCases/project/ArchiveProjectUseCase";
+import { IGetProjectMembersUseCase } from "../../application/interface/project/IGetProjectMembersUseCase";
+import { GetProjectMembersUseCase } from "../../application/useCases/project/GetProjectMembersUseCase";
+import { IAddProjectMemberUseCase } from "../../application/interface/projectMember/IAddProjectMemberUseCase";
+import { AddProjectMemberUseCase } from "../../application/useCases/projectMember/AddProjectMemberUseCase";
+import { IUpdateProjectMemberUseCase } from "../../application/interface/projectMember/IUpdateProjectMemberUseCase";
+import { UpdateProjectMemberUseCase } from "../../application/useCases/projectMember/UpdateProjectMemberUseCase";
+import { IRemoveProjectMemberUseCase } from "../../application/interface/projectMember/IRemoveProjectMemberUseCase";
+import { RemoveProjectMemberUseCase } from "../../application/useCases/projectMember/RemoveProjectMemberUseCase";
+import { IGetAvailableProjectMembersUseCase } from "../../application/interface/projectMember/IGetAvailableProjectMembersUseCase";
+import { GetAvailableProjectMembersUseCase } from "../../application/useCases/projectMember/GetAvailableProjectMembersUseCase";
+import { ICreateEpicUseCase } from "../../application/interface/epic/ICreateEpicUseCase";
+import { CreateEpicUseCase } from "../../application/useCases/epic/CreateEpicUseCase";
+import { IUpdateEpicUseCase } from "../../application/interface/epic/IUpdateEpicUseCase";
+import { UpdateEpicUseCase } from "../../application/useCases/epic/UpdateEpicUseCase";
+import { IGetEpicsByProjectUseCase } from "../../application/interface/epic/IGetEpicsByProjectUseCase";
+import { GetEpicsByProjectUseCase } from "../../application/useCases/epic/GetEpicsByProjectUseCase";
+import { IArchiveEpicUseCase } from "../../application/interface/epic/IArchiveEpicUseCase";
+import { ArchiveEpicUseCase } from "../../application/useCases/epic/ArchiveEpicUseCase";
+import { ICreateStoryUseCase } from "../../application/interface/story/ICreateStoryUseCase";
+import { CreateStoryUseCase } from "../../application/useCases/story/CreateStoryUseCase";
+import { IUpdateStoryUseCase } from "../../application/interface/story/IUpdateStoryUseCase";
+import { UpdateStoryUseCase } from "../../application/useCases/story/UpdateStoryUseCase";
+import { IGetStoriesByProjectUseCase } from "../../application/interface/story/IGetStoriesByProjectUseCase";
+import { GetStoriesByProjectUseCase } from "../../application/useCases/story/GetStoriesByProjectUseCase";
+import { IArchiveStoryUseCase } from "../../application/interface/story/IArchiveStoryUseCase";
+import { ArchiveStoryUseCase } from "../../application/useCases/story/ArchiveStoryUseCase";
+import { GetStoriesByEpicUseCase } from "../../application/useCases/story/GetStoriesByEpicUseCase";
+import { IGetStoriesByEpicUseCase } from "../../application/interface/story/IGetStoriesByEpicUseCase";
 
 export class UseCaseModule {
     static registerModule(): void {
@@ -109,130 +147,223 @@ export class UseCaseModule {
             useClass: GetOrganizationUseCase
         })
 
-        container.register<IUpdateOrganizationUseCase>('IUpdateOrganizationUseCase',{
+        container.register<IUpdateOrganizationUseCase>('IUpdateOrganizationUseCase', {
             useClass: UpdateOrganizationUseCase
         })
 
-        container.register<IForgotPasswordUserUseCase>("IForgotPasswordUserUseCase",{
+        container.register<IForgotPasswordUserUseCase>("IForgotPasswordUserUseCase", {
             useClass: ForgotPasswordUserUseCase
         })
 
-        container.register<IVerifyResetOtpUseCase>("IVerifyResetOtpUseCase",{
+        container.register<IVerifyResetOtpUseCase>("IVerifyResetOtpUseCase", {
             useClass: VerifyResetOtpUseCase
 
         })
 
-        container.register<IResetPasswordUseCase>("IResetPasswordUseCase",{
+        container.register<IResetPasswordUseCase>("IResetPasswordUseCase", {
             useClass: ResetPasswordUseCase
 
         })
 
-        container.register<IGetUsersUseCase>("IGetUsersUseCase",{
+        container.register<IGetUsersUseCase>("IGetUsersUseCase", {
             useClass: GetUsersUseCase
 
         })
 
-        container.register<IGetUserByIdUseCase>("IGetUserByIdUseCase",{
+        container.register<IGetUserByIdUseCase>("IGetUserByIdUseCase", {
             useClass: GetUserByIdUseCase
 
         })
 
-        container.register<IUpdateUserUseCase>("IUpdateUserUseCase",{
+        container.register<IUpdateUserUseCase>("IUpdateUserUseCase", {
             useClass: UpdatedUserUseCase
 
         })
 
-        container.register<IActivateUserUseCase>("IActivateUserUseCase",{
+        container.register<IActivateUserUseCase>("IActivateUserUseCase", {
             useClass: ActivateUserUseCase
 
         })
-        container.register<IDeactivateUserUseCase>("IDeactivateUserUseCase",{
+        container.register<IDeactivateUserUseCase>("IDeactivateUserUseCase", {
             useClass: DeactivateUserUseCase
 
         })
-        container.register<ICreateInvitationUseCase>("ICreateInvitationUseCase",{
+        container.register<ICreateInvitationUseCase>("ICreateInvitationUseCase", {
             useClass: CreateInvitationUseCase
 
         })
 
-        container.register<IAcceptInvitationUseCase>("IAcceptInvitationUseCase",{
+        container.register<IAcceptInvitationUseCase>("IAcceptInvitationUseCase", {
             useClass: AcceptInvitationUseCase
 
         })
 
-        container.register<IGetInvitationsUseCase>("IGetInvitationsUseCase",{
+        container.register<IGetInvitationsUseCase>("IGetInvitationsUseCase", {
             useClass: GetInvitationsUseCase
 
         })
 
-        container.register<IGoogleLoginUseCase>("IGoogleLoginUseCase",{
+        container.register<IGoogleLoginUseCase>("IGoogleLoginUseCase", {
             useClass: GoogleLoginUseCase
 
         })
 
-        container.register<IResendInvitationUseCase>("IResendInvitationUseCase",{
+        container.register<IResendInvitationUseCase>("IResendInvitationUseCase", {
             useClass: ResendInvitationUseCase
 
         })
-        
-        container.register<ICancelInvitationUseCase>("ICancelInvitationUseCase",{
+
+        container.register<ICancelInvitationUseCase>("ICancelInvitationUseCase", {
             useClass: CancelInvitationUseCase
 
         })
 
-        container.register<ICreateTeamUseCase>("ICreateTeamUseCase",{
+        container.register<ICreateTeamUseCase>("ICreateTeamUseCase", {
             useClass: CreateTeamUseCase
 
         })
 
-        container.register<IGetTeamByIdUseCase>("IGetTeamByIdUseCase",{
+        container.register<IGetTeamByIdUseCase>("IGetTeamByIdUseCase", {
             useClass: GetTeamByIdUseCase
 
         })
 
-        container.register<IGetTeamsUseCase>("IGetTeamsUseCase",{
+        container.register<IGetTeamsUseCase>("IGetTeamsUseCase", {
             useClass: GetTeamsUseCase
 
         })
 
-        container.register<IUpdateTeamUseCase>("IUpdateTeamUseCase",{
+        container.register<IUpdateTeamUseCase>("IUpdateTeamUseCase", {
             useClass: UpdateTeamUseCase
 
         })
 
-        container.register<IAddTeamMemberUseCase>("IAddTeamMemberUseCase",{
+        container.register<IAddTeamMemberUseCase>("IAddTeamMemberUseCase", {
             useClass: AddTeamMemberUseCase
 
         })
 
-        container.register<IRemoveTeamMemberUseCase>("IRemoveTeamMemberUseCase",{
+        container.register<IRemoveTeamMemberUseCase>("IRemoveTeamMemberUseCase", {
             useClass: RemoveTeamMemberUseCase
 
         })
 
-        container.register<IChangeTeamLeadUseCase>("IChangeTeamLeadUseCase",{
+        container.register<IChangeTeamLeadUseCase>("IChangeTeamLeadUseCase", {
             useClass: ChangeTeamLeadUseCase
 
         })
 
-        container.register<IGetTeamMembersUseCase>("IGetTeamMembersUseCase",{
+        container.register<IGetTeamMembersUseCase>("IGetTeamMembersUseCase", {
             useClass: GetTeamMembersUseCase
 
         })
 
-        container.register<IGetAvailableTeamMembersUseCase>("IGetAvailableTeamMembersUseCase",{
+        container.register<IGetAvailableTeamMembersUseCase>("IGetAvailableTeamMembersUseCase", {
             useClass: GetAvailableTeamMembersUseCase
 
         })
 
-        container.register<IDeleteTeamUseCase>("IDeleteTeamUseCase",{
+        container.register<IDeleteTeamUseCase>("IDeleteTeamUseCase", {
             useClass: DeleteTeamUseCase
 
         })
-        container.register<IGetMyTeamUseCase>("IGetMyTeamUseCase",{
+
+        container.register<IGetMyTeamUseCase>("IGetMyTeamUseCase", {
             useClass: GetMyTeamUseCase
 
         })
+
+        container.register<ICreateProjectUseCase>("ICreateProjectUseCase", {
+            useClass: CreateProjectUseCase
+
+        })
+
+        container.register<IUpdateProjectUseCase>("IUpdateProjectUseCase", {
+            useClass: UpdateProjectUseCase
+
+        })
+
+        container.register<IGetProjectByIdUseCase>("IGetProjectByIdUseCase", {
+            useClass: GetProjectByIdUseCase
+
+        })
+
+        container.register<IGetAllProjectsUseCase>("IGetAllProjectsUseCase", {
+            useClass: GetAllProjectsUseCase
+
+        })
+
+        container.register<IArchiveProjectUseCase>("IArchiveProjectUseCase", {
+            useClass: ArchiveProjectUseCase,
+        });
+        container.register<IArchiveProjectUseCase>("IArchiveProjectUseCase", {
+            useClass: ArchiveProjectUseCase,
+        });
+
+        container.register<IGetProjectMembersUseCase>("IGetProjectMembersUseCase", {
+            useClass: GetProjectMembersUseCase,
+        });
+
+        container.register<IAddProjectMemberUseCase>("IAddProjectMemberUseCase", {
+            useClass: AddProjectMemberUseCase,
+        });
+
+        container.register<IUpdateProjectMemberUseCase>("IUpdateProjectMemberUseCase", {
+            useClass: UpdateProjectMemberUseCase,
+        });
+
+        container.register<IRemoveProjectMemberUseCase>("IRemoveProjectMemberUseCase", {
+            useClass: RemoveProjectMemberUseCase,
+        });
+
+        container.register<IGetAvailableProjectMembersUseCase>("IGetAvailableProjectMembersUseCase", {
+            useClass: GetAvailableProjectMembersUseCase ,
+        });
+
+        container.register<ICreateEpicUseCase>("ICreateEpicUseCase", {
+            useClass: CreateEpicUseCase,
+        });
+
+        container.register<IUpdateEpicUseCase>("IUpdateEpicUseCase", {
+            useClass: UpdateEpicUseCase,
+        });
+
+        container.register<IGetEpicsByProjectUseCase>("IGetEpicsByProjectUseCase", {
+            useClass: GetEpicsByProjectUseCase ,
+        });
+
+        
+
+        container.register<IArchiveEpicUseCase>("IArchiveEpicUseCase", {
+            useClass: ArchiveEpicUseCase,
+        });
+
+        container.register<ICreateStoryUseCase>("ICreateStoryUseCase", {
+            useClass: CreateStoryUseCase,
+        });
+
+        container.register<IUpdateStoryUseCase>("IUpdateStoryUseCase", {
+            useClass: UpdateStoryUseCase,
+        });
+
+        container.register<IGetStoriesByProjectUseCase>("IGetStoriesByProjectUseCase", {
+            useClass: GetStoriesByProjectUseCase,
+        });
+        container.register<IGetStoriesByEpicUseCase>("IGetStoriesByEpicUseCase", {
+            useClass: GetStoriesByEpicUseCase,
+        }); 
+
+
+
+        container.register<IArchiveStoryUseCase>("IArchiveStoryUseCase", {
+            useClass: ArchiveStoryUseCase,
+        });
+
+
+
+
+
+
 
 
 

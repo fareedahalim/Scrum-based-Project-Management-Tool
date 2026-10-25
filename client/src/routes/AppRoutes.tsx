@@ -28,6 +28,11 @@ import PublicRoute from "./PublicRoute";
 import AdminRoute from "./AdminRoutes";
 import OrganizationRequiredRoute from "./OrganizationRequiredRoute";
 import GuestRoute from "./GuestRoute";
+import ProjectsPage from "../pages/Project/ProjectsPage";
+import ProjectDetailsPage from "../pages/Project/ProjectDetailsPage";
+import EditProjectPage from "../pages/Project/EditProjectPage";
+import ProductBacklogPage from "../pages/Project/ProductBacklogPage";
+import StoryBacklogPage from "../pages/Story/StoryBacklogPage";
 // import GuestRoute from "./GuestRoute";
 
 const AppRoutes = () => {
@@ -58,7 +63,7 @@ const AppRoutes = () => {
         />
       </Route>
 
-      <Route element={<GuestRoute/>}>
+      <Route element={<GuestRoute />}>
         <Route
           path={FRONTEND_ROUTES.LOGIN}
           element={<LoginPage />}
@@ -91,6 +96,30 @@ const AppRoutes = () => {
             <Route
               path={FRONTEND_ROUTES.DASHBOARD}
               element={<DashboardPage />}
+            />
+
+            <Route
+              path={FRONTEND_ROUTES.PROJECTS}
+              element={<ProjectsPage />}
+            />
+
+            <Route
+              path={FRONTEND_ROUTES.PROJECT_DETAILS}
+              element={<ProjectDetailsPage />}
+            />
+            <Route
+              path={FRONTEND_ROUTES.EDIT_PROJECT}
+              element={<EditProjectPage />}
+            />
+
+            <Route
+              path={FRONTEND_ROUTES.PRODUCT_BACKLOG}
+              element={<ProductBacklogPage />}
+            />
+
+            <Route
+              path={FRONTEND_ROUTES.STORY_BACKLOG}
+              element={<StoryBacklogPage />}
             />
 
             <Route

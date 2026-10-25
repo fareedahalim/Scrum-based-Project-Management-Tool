@@ -55,6 +55,9 @@ const envSchema = z.object({
     USER_API_PREFIX: z.string().trim().min(1),
     INVITATION_API_PREFIX: z.string().trim().min(1),
     TEAM_API_PREFIX: z.string().trim().min(1),
+    PROJECT_API_PREFIX: z.string().trim().min(1),
+    EPIC_API_PREFIX: z.string().trim().min(1),
+    STORY_API_PREFIX: z.string().trim().min(1),
 
 })
 
