@@ -1,15 +1,34 @@
-import { AxiosInstance } from "../../axios/axios"
-import { API_ROUTES } from "../../constants/apiRoutes"
-import type { GetUsersResponse } from "../../types/userTypes";
 
-export const getUsers = async (): Promise<GetUsersResponse> => {
-    const response = await AxiosInstance.get<GetUsersResponse>(
-        API_ROUTES.USER.GET_ALL
-    );
+import { AxiosInstance } from "../../axios/axios";
+import { API_ROUTES } from "../../constants/apiRoutes";
+import type {
+  GetUsersParams,
+  GetUsersResponse,
+} from "../../types/userTypes";
 
-    console.log("getusers api==", response.data);
+export const getUsers = async (
+  params: GetUsersParams
+): Promise<GetUsersResponse> => {
+  const queryParams = {
+    ...(params.search?.trim()
+      ? { search: params.search.trim() }
+      : {}),
+    ...(params.role && params.role !== "ALL"
+      ? { role: params.role }
+      : {}),
+    ...(params.status && params.status !== "ALL"
+      ? { status: params.status }
+      : {}),
+    page: params.page,
+    limit: params.limit,
+  };
 
-    return response.data;
+  const response = await AxiosInstance.get<GetUsersResponse>(
+    API_ROUTES.USER.GET_ALL,
+    { params: queryParams }
+  );
+
+  return response.data;
 };
 
 export const getUserById = async (userId: string) => {

@@ -67,53 +67,111 @@ export class InvitationController {
     });
   };
 
+
   getInvitations = async (
     req: Request,
     res: Response
   ): Promise<void> => {
-    console.log("entering to the get Invitations");
+    const search =
+      typeof req.query.search === "string"
+        ? req.query.search.trim()
+        : "";
 
-    const invitations =
-      await this._getInvitationsUseCase.execute();
+    const rawStatus =
+      typeof req.query.status === "string"
+        ? req.query.status
+        : "";
+
+    const validStatuses = [
+      "PENDING",
+      "ACCEPTED",
+      "EXPIRED",
+      "CANCELLED",
+    ] as const;
+
+    if (
+      rawStatus &&
+      !validStatuses.includes(
+        rawStatus as (typeof validStatuses)[number]
+      )
+    ) {
+      res.status(400).json({
+        message: "Invalid invitation status",
+      });
+      return;
+    }
+
+    const page = Number(req.query.page ?? 1);
+    const limit = Number(req.query.limit ?? 10);
+
+    if (
+      !Number.isInteger(page) ||
+      page < 1 ||
+      !Number.isInteger(limit) ||
+      limit < 1 ||
+      limit > 100
+    ) {
+      res.status(400).json({
+        message: "Invalid page or limit",
+      });
+      return;
+    }
+
+    const result =
+      await this._getInvitationsUseCase.execute({
+        search,
+        status: rawStatus
+          ? rawStatus as (typeof validStatuses)[number]
+          : undefined,
+        page,
+        limit,
+      });
 
     res.status(200).json({
       message: "Invitations fetched successfully",
-      data: invitations,
+      data: result.invitations,
+      pagination: {
+        total: result.total,
+        page: result.page,
+        limit: result.limit,
+        totalPages: result.totalPages,
+      },
     });
   };
 
-resendInvitation = async (
-  req: AuthRequest,
-  res: Response
-): Promise<void> => {
-  const invitationId =
-    req.params.id;
 
-  await this._resendInvitationUseCase.execute(
-    invitationId as string
-  );
+  resendInvitation = async (
+    req: AuthRequest,
+    res: Response
+  ): Promise<void> => {
+    const invitationId =
+      req.params.id;
 
-  res.status(200).json({
-    message:
-      "Invitation resent successfully",
-  });
-};
+    await this._resendInvitationUseCase.execute(
+      invitationId as string
+    );
 
-cancelInvitation = async (
-  req: AuthRequest,
-  res: Response
-): Promise<void> => {
-  const invitationId =
-    req.params.id;
+    res.status(200).json({
+      message:
+        "Invitation resent successfully",
+    });
+  };
 
-  await this._cancelInvitationUseCase.execute(
-    invitationId as string
-  );
+  cancelInvitation = async (
+    req: AuthRequest,
+    res: Response
+  ): Promise<void> => {
+    const invitationId =
+      req.params.id;
 
-  res.status(200).json({
-    message:
-      "Invitation cancelled successfully",
-  });
-};
+    await this._cancelInvitationUseCase.execute(
+      invitationId as string
+    );
+
+    res.status(200).json({
+      message:
+        "Invitation cancelled successfully",
+    });
+  };
 
 }

@@ -35,11 +35,19 @@ export class ResendInvitationUseCase
     }
 
     // 2. Only pending invitations can be resent
-    if (invitation.status !== "PENDING") {
-      throw new Error(
-        "Only pending invitations can be resent"
-      );
-    }
+    const now = new Date();
+
+if (
+  invitation.status !== "EXPIRED" &&
+  !(
+    invitation.status === "PENDING" &&
+    invitation.expiresAt <= now
+  )
+) {
+  throw new Error(
+    "Only expired invitations can be resent"
+  );
+}
 
     // 3. Generate new token
     const token =
@@ -55,7 +63,8 @@ export class ResendInvitationUseCase
       id,
       expiresAt
     );
-
+await this._invitationRedisRepo
+  .deleteTokenByInvitationId(id);
     // 6. Store NEW token in Redis
     await this._invitationRedisRepo.saveToken(
       token,
@@ -63,6 +72,8 @@ export class ResendInvitationUseCase
       id,
       24 * 60 * 60
     );
+
+    
   // 7. Create the complete frontend invitation URL
     const invitationLink =
       `${env.CLIENT_URL}/invite/${token}`;

@@ -1,19 +1,22 @@
+
 import { inject, injectable } from "tsyringe";
 
-import { IInvitationRepository } from "../../../domain/interfaces/repositories/Invitation/IInvitationRepository";
+import {
+  IInvitationRepository,
+  InvitationSearchParams,
+} from "../../../domain/interfaces/repositories/Invitation/IInvitationRepository";
 
 import { IGetInvitationsUseCase } from "../../interface/invitation/IGetInvitations";
 
 @injectable()
 export class GetInvitationsUseCase
-  implements IGetInvitationsUseCase
-{
+  implements IGetInvitationsUseCase {
   constructor(
     @inject("IInvitationRepository")
     private _invitationRepo: IInvitationRepository
-  ) {}
+  ) { }
 
-  async execute() {
-    return await this._invitationRepo.getAllInvitations();
+  async execute(params: InvitationSearchParams) {
+    return this._invitationRepo.getAllInvitations(params);
   }
 }

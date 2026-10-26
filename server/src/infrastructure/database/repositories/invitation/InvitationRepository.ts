@@ -1,6 +1,6 @@
 import { injectable } from "tsyringe";
 
-import { IInvitationRepository } from "../../../../domain/interfaces/repositories/Invitation/IInvitationRepository";
+import { IInvitationRepository, InvitationSearchParams, PaginatedInvitations } from "../../../../domain/interfaces/repositories/Invitation/IInvitationRepository";
 import { IInvitationEntity } from "../../../../domain/entities/Invitation/IInvitationEntity";
 
 import {
@@ -90,26 +90,81 @@ export class InvitationRepository
     const updatedInvitation =
       await InvitationModel.findByIdAndUpdate(
         id,
-        { expiresAt },
-        { new: true }
+        {
+          expiresAt,
+          status: "PENDING",
+        },
+        {
+          new: true,
+          runValidators: true,
+        }
       );
 
     if (!updatedInvitation) {
       return null;
     }
 
-    return InvitationMapper.toEntity(
-      updatedInvitation
-    );
+    return InvitationMapper.toEntity(updatedInvitation);
   }
 
-  async getAllInvitations(): Promise<IInvitationEntity[]> {
-    const invitations = await InvitationModel
-      .find()
-      .sort({ createdAt: -1 });
 
-    return invitations.map((invitation) =>
-      InvitationMapper.toEntity(invitation)
+  async getAllInvitations(
+    params: InvitationSearchParams
+  ): Promise<PaginatedInvitations> {
+    // Update expired pending invitations first.
+    await InvitationModel.updateMany(
+      {
+        status: "PENDING",
+        expiresAt: { $lte: new Date() },
+      },
+      {
+        $set: { status: "EXPIRED" },
+      }
     );
+
+    const { search, status, page, limit } = params;
+
+    // Build the MongoDB filter.
+    const filter: Record<string, unknown> = {};
+
+    if (status) {
+      filter.status = status;
+    }
+
+    if (search?.trim()) {
+      // Escape special regex characters.
+      const escapedSearch = search
+        .trim()
+        .replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+      filter.email = {
+        $regex: escapedSearch,
+        $options: "i",
+      };
+    }
+
+    // Calculate how many records to skip.
+    const skip = (page - 1) * limit;
+
+    // Fetch only the records for the requested page.
+    const [invitations, total] = await Promise.all([
+      InvitationModel.find(filter)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit),
+
+      InvitationModel.countDocuments(filter),
+    ]);
+
+    return {
+      invitations: invitations.map((invitation) =>
+        InvitationMapper.toEntity(invitation)
+      ),
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
   }
+
 }

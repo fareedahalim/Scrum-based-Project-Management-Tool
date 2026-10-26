@@ -1,5 +1,8 @@
 import { AxiosInstance } from "../../axios/axios";
 import { API_ROUTES } from "../../constants/apiRoutes";
+import type {
+  GetInvitationsParams,
+} from "../../types/invitationTypes";
 
 export interface CreateInvitationPayload {
   email: string;
@@ -28,14 +31,31 @@ console.log("CREATE INVITATION API",response.data)
 };
 
 // Get invitations
-export const getInvitations = async () => {
-  console.log("enterin gto the getinvitation api")
+
+export const getInvitations = async (
+  params: GetInvitationsParams
+) => {
+  const queryParams = {
+    ...(params.search?.trim()
+      ? { search: params.search.trim() }
+      : {}),
+    ...(params.status && params.status !== "ALL"
+      ? { status: params.status }
+      : {}),
+    page: params.page,
+    limit: params.limit,
+  };
+
   const response = await AxiosInstance.get(
-    API_ROUTES.INVITATION.GET_INVITATIONS
+    API_ROUTES.INVITATION.GET_INVITATIONS,
+    {
+      params: queryParams,
+    }
   );
-console.log(response.data)
+
   return response.data;
 };
+
 
 // Accept invitation
 export const acceptInvitation = async (

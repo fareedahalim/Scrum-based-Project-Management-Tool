@@ -1,5 +1,11 @@
-import { IInvitationEntity } from "../../../domain/entities/Invitation/IInvitationEntity";
+
+import type {
+  InvitationSearchParams,
+  PaginatedInvitations,
+} from "../../../domain/interfaces/repositories/Invitation/IInvitationRepository";
 
 export interface IGetInvitationsUseCase {
-  execute(): Promise<IInvitationEntity[]>;
+  execute(
+    params: InvitationSearchParams
+  ): Promise<PaginatedInvitations>;
 }

@@ -11,6 +11,7 @@ import {
   getInvitations,
   resendInvitation,
 } from "../../services/Invitation/invitationService";
+import type { GetInvitationsParams } from "../../types/invitationTypes";
 
 // Create invitation
 export const useCreateInvitation = () => {
@@ -20,10 +21,12 @@ export const useCreateInvitation = () => {
 };
 
 // Get invitations
-export const useGetInvitations = () => {
+export const useGetInvitations = (
+  params: GetInvitationsParams
+) => {
   return useQuery({
-    queryKey: ["invitations"],
-    queryFn: getInvitations,
+    queryKey: ["invitations", params],
+    queryFn: () => getInvitations(params),
   });
 };
 

@@ -14,6 +14,7 @@ import { IUpdateUserUseCase } from "../../../application/interface/user/IUpdateU
 import { IActivateUserUseCase } from "../../../application/interface/user/IActivateUserUseCase";
 import { IDeactivateUserUseCase } from "../../../application/interface/user/IDeactivateUserUseCase";
 import { AuthRequest } from "../../middlewares/auth/authMiddleware";
+import { UserRoles } from "../../../domain/enums/UserRole";
 
 @injectable()
 export class UserController {
@@ -34,19 +35,103 @@ export class UserController {
     private readonly _deactivateUserUseCase: IDeactivateUserUseCase
   ) {}
 
+  
   // =========================
-  // GET ALL USERS
+  // GET USERS WITH SEARCH, FILTERS AND PAGINATION
   // =========================
   getUsers = async (
     req: Request,
     res: Response
   ): Promise<void> => {
     try {
-      const users = await this._getUsersUseCase.execute();
+      const search =
+        typeof req.query.search === "string"
+          ? req.query.search.trim()
+          : "";
+
+      const rawRole =
+        typeof req.query.role === "string"
+          ? req.query.role
+          : "";
+
+      const rawStatus =
+        typeof req.query.status === "string"
+          ? req.query.status
+          : "";
+
+const validRoles = Object.values(UserRoles);
+
+if (
+  rawRole &&
+  !validRoles.includes(rawRole as UserRoles)
+) {
+  res.status(HTTP_STATUS.BAD_REQUEST).json({
+    message: "Invalid user role",
+  });
+  return;
+}      const validStatuses = ["ACTIVE", "INACTIVE"] as const;
+
+      if (
+        rawRole &&
+        !validRoles.includes(
+          rawRole as (typeof validRoles)[number]
+        )
+      ) {
+        res.status(HTTP_STATUS.BAD_REQUEST).json({
+          message: "Invalid user role",
+        });
+        return;
+      }
+
+      if (
+        rawStatus &&
+        !validStatuses.includes(
+          rawStatus as (typeof validStatuses)[number]
+        )
+      ) {
+        res.status(HTTP_STATUS.BAD_REQUEST).json({
+          message: "Invalid user status",
+        });
+        return;
+      }
+
+      const page = Number(req.query.page ?? 1);
+      const limit = Number(req.query.limit ?? 10);
+
+      if (
+        !Number.isInteger(page) ||
+        page < 1 ||
+        !Number.isInteger(limit) ||
+        limit < 1 ||
+        limit > 100
+      ) {
+        res.status(HTTP_STATUS.BAD_REQUEST).json({
+          message: "Invalid page or limit",
+        });
+        return;
+      }
+
+      const result = await this._getUsersUseCase.execute({
+        search,
+        role: rawRole
+          ? (rawRole as (typeof validRoles)[number])
+          : undefined,
+        status: rawStatus
+          ? (rawStatus as (typeof validStatuses)[number])
+          : undefined,
+        page,
+        limit,
+      });
 
       res.status(HTTP_STATUS.OK).json({
         message: MESSAGES.USERS.USERS_FETCH_SUCCESSFULLY,
-        data: users,
+        data: result.users,
+        pagination: {
+          total: result.total,
+          page: result.page,
+          limit: result.limit,
+          totalPages: result.totalPages,
+        },
       });
     } catch (error) {
       const message =
@@ -59,6 +144,7 @@ export class UserController {
       });
     }
   };
+
 
   // =========================
   // GET USER BY ID

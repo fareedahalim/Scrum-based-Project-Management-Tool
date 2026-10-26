@@ -1,4 +1,6 @@
-import { useMemo, useState } from "react";
+
+import { useState } from "react";
+import toast from "react-hot-toast";
 import {
   ChevronLeft,
   ChevronRight,
@@ -10,6 +12,7 @@ import { useSelector } from "react-redux";
 
 import UserTable from "../../components/Users/UserTable";
 import UserDetailsDrawer from "../../components/Users/UserDetailsDrawer";
+import InviteUserModal from "../../components/modals/Invitations/InviteUserModal";
 
 import {
   useActivateUser,
@@ -18,135 +21,146 @@ import {
 } from "../../hooks/User/UserHooks";
 
 import type { RootState } from "../../store/store";
-import type { User } from "../../types/userTypes";
-import InviteUserModal from "../../components/modals/Invitations/InviteUserModal";
-// import type { User } from "../../types/user.types";
+import type {
+  User,
+  GetUsersParams,
+} from "../../types/userTypes";
+
+const PAGE_SIZE = 10;
 
 const UsersPage = () => {
   const [search, setSearch] = useState("");
-  const [roleFilter, setRoleFilter] = useState("ALL");
-  const [statusFilter, setStatusFilter] = useState("ALL");
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [roleFilter, setRoleFilter] =
+    useState<GetUsersParams["role"]>("ALL");
+  const [statusFilter, setStatusFilter] =
+    useState<GetUsersParams["status"]>("ALL");
+  const [page, setPage] = useState(1);
 
-  // Logged-in user
+  const [selectedUser, setSelectedUser] =
+    useState<User | null>(null);
+  const [isInviteModalOpen, setIsInviteModalOpen] =
+    useState(false);
+
   const currentUser = useSelector(
     (state: RootState) => state.auth.user
   );
-
-  const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
 
   const isAdmin = currentUser?.role === "ADMIN";
 
   const {
     data,
     isLoading,
+    isFetching,
     isError,
     error,
-  } = useGetUsers();
+  } = useGetUsers({
+    search,
+    role: roleFilter,
+    status: statusFilter,
+    page,
+    limit: PAGE_SIZE,
+  });
 
   const activateMutation = useActivateUser();
   const deactivateMutation = useDeactivateUser();
 
   const users: User[] = data?.data ?? [];
+  const pagination = data?.pagination;
 
-  const filteredUsers = useMemo(() => {
-    return users.filter((user) => {
-      const fullName =
-        `${user.firstName} ${user.lastName}`.toLowerCase();
+  const total = pagination?.total ?? 0;
+  const totalPages = Math.max(
+    pagination?.totalPages ?? 0,
+    1
+  );
 
-      const searchValue = search.toLowerCase().trim();
-
-      const matchesSearch =
-        fullName.includes(searchValue) ||
-        user.email.toLowerCase().includes(searchValue);
-
-      const matchesRole =
-        roleFilter === "ALL" ||
-        user.role === roleFilter;
-
-      const matchesStatus =
-        statusFilter === "ALL" ||
-        (statusFilter === "ACTIVE" && user.isActive) ||
-        (statusFilter === "INACTIVE" && !user.isActive);
-
-      return (
-        matchesSearch &&
-        matchesRole &&
-        matchesStatus
-      );
-    });
-  }, [users, search, roleFilter, statusFilter]);
-
-  // ADMIN can activate a MEMBER
   const handleActivate = (id: string) => {
-    if (!isAdmin) {
-      return;
-    }
+    if (!isAdmin) return;
 
     activateMutation.mutate(id, {
       onSuccess: () => {
         setSelectedUser((current) =>
           current
-            ? {
-                ...current,
-                isActive: true,
-              }
+            ? { ...current, isActive: true }
             : null
         );
       },
     });
   };
 
-  // ADMIN can deactivate a MEMBER,
-  // but cannot deactivate himself
-  const handleDeactivate = (id: string) => {
-    if (!isAdmin) {
-      return;
-    }
+  
+const handleDeactivate = (id: string) => {
+  if (!isAdmin || id === currentUser?._id) return;
 
-    if (id === currentUser?._id) {
-      return;
-    }
+  deactivateMutation.mutate(id, {
+    onSuccess: () => {
+      setSelectedUser((current) =>
+        current ? { ...current, isActive: false } : null
+      );
 
-    deactivateMutation.mutate(id, {
-      onSuccess: () => {
-        setSelectedUser((current) =>
-          current
-            ? {
-                ...current,
-                isActive: false,
-              }
-            : null
-        );
-      },
-    });
-  };
+      toast.success("Member deactivated successfully.");
+    },
+
+    onError: (error: unknown) => {
+      const apiError = error as {
+        response?: {
+          data?: {
+            message?: string;
+            error?: string;
+          };
+        };
+        message?: string;
+      };
+
+      const errorMessage =
+        apiError.response?.data?.message ||
+        apiError.response?.data?.error ||
+        apiError.message ||
+        "Unable to deactivate this member.";
+
+      toast.error(errorMessage);
+    },
+  });
+};
+
 
   const isStatusUpdating =
     activateMutation.isPending ||
     deactivateMutation.isPending;
 
   const handleSelectUser = (user: User) => {
-    // Only ADMIN can open user details
-    if (!isAdmin) {
-      return;
-    }
-
+    if (!isAdmin) return;
     setSelectedUser(user);
   };
 
   const handleInviteUser = () => {
-    if (!isAdmin) {
-      return;
-    }
+    if (!isAdmin) return;
+    setIsInviteModalOpen(true);
+  };
 
-setIsInviteModalOpen(true)  
-};
+  const handleSearchChange = (
+    value: string
+  ) => {
+    setSearch(value);
+    setPage(1);
+  };
+
+  const handleRoleChange = (
+    value: GetUsersParams["role"]
+  ) => {
+    setRoleFilter(value);
+    setPage(1);
+  };
+
+  const handleStatusChange = (
+    value: GetUsersParams["status"]
+  ) => {
+    setStatusFilter(value);
+    setPage(1);
+  };
 
   return (
     <div className="min-h-full bg-slate-50">
       <div className="mx-auto max-w-[1600px] px-4 py-6 sm:px-6 lg:px-8">
-
         {/* Header */}
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -167,7 +181,6 @@ setIsInviteModalOpen(true)
             </p>
           </div>
 
-          {/* ADMIN ONLY */}
           {isAdmin && (
             <button
               type="button"
@@ -188,15 +201,10 @@ setIsInviteModalOpen(true)
               : "grid-cols-1"
           }`}
         >
-
-          {/* Main content */}
           <div className="min-w-0">
-
-            {/* Controls */}
+            {/* Search and filters */}
             <div className="mb-4 rounded-xl border border-slate-200 bg-white p-4">
               <div className="flex flex-col gap-3 lg:flex-row">
-
-                {/* Search */}
                 <div className="relative flex-1">
                   <Search
                     size={18}
@@ -207,18 +215,19 @@ setIsInviteModalOpen(true)
                     type="text"
                     value={search}
                     onChange={(event) =>
-                      setSearch(event.target.value)
+                      handleSearchChange(event.target.value)
                     }
                     placeholder="Search by name or email..."
                     className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:ring-2 focus:ring-slate-100"
                   />
                 </div>
 
-                {/* Role */}
                 <select
                   value={roleFilter}
                   onChange={(event) =>
-                    setRoleFilter(event.target.value)
+                    handleRoleChange(
+                      event.target.value as GetUsersParams["role"]
+                    )
                   }
                   className="rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-700 outline-none focus:border-slate-400"
                 >
@@ -227,11 +236,12 @@ setIsInviteModalOpen(true)
                   <option value="MEMBER">Member</option>
                 </select>
 
-                {/* Status */}
                 <select
                   value={statusFilter}
                   onChange={(event) =>
-                    setStatusFilter(event.target.value)
+                    handleStatusChange(
+                      event.target.value as GetUsersParams["status"]
+                    )
                   }
                   className="rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-700 outline-none focus:border-slate-400"
                 >
@@ -240,13 +250,18 @@ setIsInviteModalOpen(true)
                   <option value="INACTIVE">Inactive</option>
                 </select>
 
-                {/* More Filters */}
                 <button
                   type="button"
+                  onClick={() => {
+                    setSearch("");
+                    setRoleFilter("ALL");
+                    setStatusFilter("ALL");
+                    setPage(1);
+                  }}
                   className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
                 >
                   <Filter size={17} />
-                  More Filters
+                  Clear Filters
                 </button>
               </div>
             </div>
@@ -275,47 +290,61 @@ setIsInviteModalOpen(true)
               </div>
             )}
 
-            {/* Table */}
+            {/* Table and pagination */}
             {!isLoading && !isError && (
               <>
                 <UserTable
-                  users={filteredUsers}
-                  selectedUserId={
-                    selectedUser?._id ?? null
-                  }
+                  users={users}
+                  selectedUserId={selectedUser?._id ?? null}
                   onSelectUser={handleSelectUser}
                   isAdmin={isAdmin}
                 />
 
-                {/* Pagination */}
                 <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <p className="text-sm text-slate-500">
                     Showing{" "}
                     <span className="font-medium text-slate-700">
-                      {filteredUsers.length}
-                    </span>{" "}
-                    of{" "}
+                      {users.length > 0
+                        ? (page - 1) * PAGE_SIZE + 1
+                        : 0}
+                      {"–"}
+                      {(page - 1) * PAGE_SIZE + users.length}
+                    </span>
+                    {" "}of{" "}
                     <span className="font-medium text-slate-700">
-                      {users.length}
-                    </span>{" "}
-                    members
+                      {total}
+                    </span>
+                    {" "}users
+                    {isFetching && " · Updating..."}
                   </p>
 
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-2">
                     <button
-                      disabled
-                      className="rounded-lg border border-slate-200 p-2 text-slate-400"
+                      type="button"
+                      disabled={page <= 1 || isFetching}
+                      onClick={() =>
+                        setPage((current) => current - 1)
+                      }
+                      className="rounded-lg border border-slate-200 p-2 text-slate-600 transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-40"
+                      aria-label="Previous page"
                     >
                       <ChevronLeft size={17} />
                     </button>
 
-                    <button className="rounded-lg bg-slate-900 px-3 py-2 text-sm font-medium text-white">
-                      1
-                    </button>
+                    <span className="px-3 text-sm font-medium text-slate-700">
+                      Page {page} of {totalPages}
+                    </span>
 
                     <button
-                      disabled
-                      className="rounded-lg border border-slate-200 p-2 text-slate-400"
+                      type="button"
+                      disabled={
+                        page >= totalPages || isFetching
+                      }
+                      onClick={() =>
+                        setPage((current) => current + 1)
+                      }
+                      className="rounded-lg border border-slate-200 p-2 text-slate-600 transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-40"
+                      aria-label="Next page"
                     >
                       <ChevronRight size={17} />
                     </button>
@@ -325,7 +354,7 @@ setIsInviteModalOpen(true)
             )}
           </div>
 
-          {/* Desktop drawer - ADMIN ONLY */}
+          {/* Desktop drawer */}
           {isAdmin && selectedUser && (
             <div className="hidden lg:block">
               <div className="sticky top-6">
@@ -342,7 +371,7 @@ setIsInviteModalOpen(true)
           )}
         </div>
 
-        {/* Mobile drawer - ADMIN ONLY */}
+        {/* Mobile drawer */}
         {isAdmin && selectedUser && (
           <div className="lg:hidden">
             <UserDetailsDrawer
@@ -356,18 +385,15 @@ setIsInviteModalOpen(true)
           </div>
         )}
       </div>
+
+      {/* Invitation modal */}
       {isAdmin && isInviteModalOpen && (
-  <InviteUserModal
-    onClose={() => setIsInviteModalOpen(false)}
-  />
-)}
+        <InviteUserModal
+          onClose={() => setIsInviteModalOpen(false)}
+        />
+      )}
     </div>
-    
-
-
-
   );
-
 };
 
 export default UsersPage;

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { createProjectSchema, type CreateProjectFormData } from "../../../lib/validations/project.schema";
 import { useCreateProject } from "../../../hooks/Project/ProjectHook";
-import { useGetTeams } from "../../../hooks/Team/TeamHook";
+import { useGetTeams, useGetTeamMembers } from "../../../hooks/Team/TeamHook";
 import { useGetUsers } from "../../../hooks/User/UserHooks";
 
 // import { useCreateProject } from "../../hooks/Project/ProjectHook";
@@ -38,6 +38,17 @@ const CreateProjectModal = ({
 }: CreateProjectModalProps) => {
     const createProjectMutation = useCreateProject();
 
+    const [formData, setFormData] =
+        useState<CreateProjectFormData>(initialFormData);
+
+    const [errors, setErrors] = useState<
+        Partial<Record<keyof CreateProjectFormData, string>>
+    >({});
+
+    const [showAllMembers, setShowAllMembers] = useState(false);
+
+
+
     const {
         data: teams,
         isLoading: isTeamsLoading,
@@ -48,16 +59,17 @@ const CreateProjectModal = ({
         data: usersResponse,
         isLoading: isUsersLoading,
         isError: isUsersError,
-    } = useGetUsers();
+    } = useGetUsers({
+        page: 1,
+        limit: 100,
+    });
 
-    const [formData, setFormData] =
-        useState<CreateProjectFormData>(initialFormData);
+    const {
+        data: selectedTeamMembers,
+        isLoading: isTeamMembersLoading,
+    } = useGetTeamMembers(formData.teamId);
 
-    const [errors, setErrors] = useState<
-        Partial<Record<keyof CreateProjectFormData, string>>
-    >({});
 
-    const [showAllMembers, setShowAllMembers] = useState(false);
 
     const users = usersResponse?.data ?? [];
 
@@ -163,14 +175,21 @@ const CreateProjectModal = ({
 
             toast.error(
                 apiError.response?.data?.message ||
-                    apiError.response?.data?.error ||
-                    "Failed to create project"
+                apiError.response?.data?.error ||
+                "Failed to create project"
             );
         }
     };
 
+    const selectedTeamMemberIds = new Set(
+        (selectedTeamMembers ?? []).map((member) =>
+            String(member.userId)
+        )
+    );
+
     const availableAdditionalMembers = eligibleUsers.filter(
         (user) =>
+            !selectedTeamMemberIds.has(String(user._id)) &&
             user._id !== formData.productOwnerId &&
             user._id !== formData.scrumMasterId
     );
@@ -452,13 +471,13 @@ const CreateProjectModal = ({
 
                         {showAllMembers && (
                             <div className="mt-3 max-h-40 space-y-2 overflow-y-auto rounded-lg border border-gray-200 p-3">
-                                {isUsersLoading ? (
+                                {!formData.teamId ? (
                                     <p className="text-sm text-gray-500">
-                                        Loading users...
+                                        Please select a team first.
                                     </p>
-                                ) : isUsersError ? (
-                                    <p className="text-sm text-red-600">
-                                        Failed to load users.
+                                ) : isTeamMembersLoading ? (
+                                    <p className="text-sm text-gray-500">
+                                        Loading team members...
                                     </p>
                                 ) : availableAdditionalMembers.length === 0 ? (
                                     <p className="text-sm text-gray-500">
@@ -467,9 +486,7 @@ const CreateProjectModal = ({
                                 ) : (
                                     availableAdditionalMembers.map((user) => {
                                         const selected =
-                                            formData.additionalMemberIds?.includes(
-                                                user._id
-                                            ) ?? false;
+                                            formData.additionalMemberIds?.includes(user._id) ?? false;
 
                                         return (
                                             <label
@@ -486,16 +503,14 @@ const CreateProjectModal = ({
                                                         const next = event.target.checked
                                                             ? [...current, user._id]
                                                             : current.filter(
-                                                                  (id) => id !== user._id
-                                                              );
+                                                                (id) => id !== user._id
+                                                            );
 
-                                                        updateField(
-                                                            "additionalMemberIds",
-                                                            next
-                                                        );
+                                                        updateField("additionalMemberIds", next);
                                                     }}
                                                     className="rounded border-gray-300"
                                                 />
+
                                                 {user.firstName} {user.lastName} ({user.email})
                                             </label>
                                         );

@@ -1,6 +1,19 @@
-import { IUserEntity } from "../../../domain/entities/User/IUserEntity";
+
+import type {
+    UserSearchParams,
+    PaginatedUsers,
+} from "../../../domain/interfaces/repositories/User/IUserRepository";
+
 import { UserResponseDTO } from "../../dtos/user/responseDTOs/UserResponseDTO";
 
 export interface IGetUsersUseCase {
-    execute(): Promise<UserResponseDTO[]>
+    execute(
+        params: UserSearchParams
+    ): Promise<{
+        users: UserResponseDTO[];
+        total: number;
+        page: number;
+        limit: number;
+        totalPages: number;
+    }>;
 }

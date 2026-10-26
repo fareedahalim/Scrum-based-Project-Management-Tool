@@ -7,6 +7,11 @@ import { UserDocument, UserModel } from "../../models/User/UserModel";
 import { UserMapper } from "../../../mappers/UserMapper";
 import { ERROR_MESSAGES, USER_ERRORS } from "../../../../domain/constants/errorMessages";
 
+import type {
+    UserSearchParams,
+    PaginatedUsers,
+} from "../../../../domain/interfaces/repositories/User/IUserRepository";
+
 @injectable()
 
 export class UserRepository extends BaseRepo<IUserEntity> implements IUserRepository {
@@ -61,6 +66,58 @@ export class UserRepository extends BaseRepo<IUserEntity> implements IUserReposi
             UserMapper.toEntity(user as unknown as UserDocument)
         )
 
+    }
+
+
+    async findUsers(
+        params: UserSearchParams
+    ): Promise<PaginatedUsers> {
+        const { search, role, status, page, limit } = params;
+
+        const filter: Record<string, unknown> = {};
+
+        if (role) {
+            filter.role = role;
+        }
+
+        if (status === "ACTIVE") {
+            filter.isActive = true;
+        } else if (status === "INACTIVE") {
+            filter.isActive = false;
+        }
+
+        if (search?.trim()) {
+            const escapedSearch = search
+                .trim()
+                .replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+            filter.$or = [
+                { firstName: { $regex: escapedSearch, $options: "i" } },
+                { lastName: { $regex: escapedSearch, $options: "i" } },
+                { email: { $regex: escapedSearch, $options: "i" } },
+            ];
+        }
+
+        const skip = (page - 1) * limit;
+
+        const [userDocs, total] = await Promise.all([
+            UserModel.find(filter)
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(limit),
+
+            UserModel.countDocuments(filter),
+        ]);
+
+        return {
+            users: userDocs.map((user) =>
+                UserMapper.toEntity(user as unknown as UserDocument)
+            ),
+            total,
+            page,
+            limit,
+            totalPages: Math.ceil(total / limit),
+        };
     }
 
     async updateUser(

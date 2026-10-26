@@ -1,11 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { activateUser, deactivateUser, getUserById, getUsers, updateUser } from "../../services/User/userService"
+import type { GetUsersParams } from "../../types/userTypes";
 
-export const useGetUsers = () => {
-    return useQuery({
-        queryKey: ["users"],
-        queryFn: getUsers,
-    })
+export const useGetUsers = (params: GetUsersParams) => {
+  return useQuery({
+    queryKey: ["users", params],
+    queryFn: () => getUsers(params),
+  });
 };
 
 export const useGetUserById = (userId: string) => {
