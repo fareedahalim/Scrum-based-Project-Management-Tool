@@ -3,7 +3,7 @@ import { IUpdateOrganizationUseCase } from "../../interface/organization/IUpdate
 import { OrganizationDTO } from "../../dtos/organization/requestDTOs/OrganizationDTO";
 import { OrganizationResponseDTO } from "../../dtos/organization/responseDTOs/OrganizationResponseDTO";
 import { IOrganizationRepository } from "../../../domain/interfaces/repositories/Organization/IOrganizationRepository";
-import { ERROR_MESSAGES, ORGANIZATION_ERRORS } from "../../../domain/constants/errorMessages";
+import { ORGANIZATION_ERRORS } from "../../../domain/constants/errorMessages";
 import { OrganizationDTOmapper } from "../../mappers/Organization/OrganizationDTOmapper";
 
 @injectable()

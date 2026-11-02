@@ -76,9 +76,10 @@ async getStoriesByProject(
         Math.max(1, Math.floor(filters.limit ?? 10)),
     );
 
-    const mongoFilter: Record<string, any> = {
-        projectId,
-    };
+   const mongoFilter: Record<string, unknown> = {
+    projectId,
+};
+
 
     // Archived stories are excluded by default.
     if (!includeArchived) {
@@ -252,4 +253,11 @@ async getStoriesByProject(
 
     return doc ? StoryMapper.toEntity(doc) : null;
   }
+  
+// userstory with point 3 created today
+
+// async getStoryWithStoryPoint(projrctId): Promise<IStroyEnitity>{
+//   // const story = await StoryModel.find(projectId).D
+// const res = await storyModel.findAll(story._id,{stroyPoint:3}).Date.
+// }
 }

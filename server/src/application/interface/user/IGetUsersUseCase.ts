@@ -1,7 +1,6 @@
 
 import type {
     UserSearchParams,
-    PaginatedUsers,
 } from "../../../domain/interfaces/repositories/User/IUserRepository";
 
 import { UserResponseDTO } from "../../dtos/user/responseDTOs/UserResponseDTO";

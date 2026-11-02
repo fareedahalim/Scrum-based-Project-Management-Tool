@@ -2832,3 +2832,349 @@
 {"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWQ2N2YwMjQwOWM0YTU5YTBkYTQ0MmIiLCJyb2xlIjoiTUVNQkVSIiwiaWF0IjoxNzkyOTk0MzcwLCJleHAiOjE3OTI5OTYxNzB9.OPcQTzG5RFYoveQy8YTWqoTXEWic7Nn1EbQbJdOvrwc","level":"info","message":"Login successful","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWQ2N2YwMjQwOWM0YTU5YTBkYTQ0MmIiLCJyb2xlIjoiTUVNQkVSIiwiaWF0IjoxNzkyOTk0MzcwLCJleHAiOjE3OTM1OTkxNzB9.qnNTuVTedWRN6pTHTr-Tllu-zVZHLm02CFxBIb6Howg","timestamp":"2026-10-26T05:59:30.611Z","user":{"email":"ami@gmail.com","firstName":"amina","id":"6ad67f02409c4a59a0da442b","isActive":true,"isEmailVerified":true,"lastName":"mithwa","phone":"1249570975","role":"MEMBER"}}
 {"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWQ2NjYwYzdhMDAxZjljOWZiYWYyMzAiLCJyb2xlIjoiTUVNQkVSIiwiaWF0IjoxNzkyOTk0NDU0LCJleHAiOjE3OTI5OTYyNTR9.29nxz-dbSrT3aZ0NdTHfkbfNGA06ARUjz3HHVpKBE7U","level":"info","message":"Login successful","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWQ2NjYwYzdhMDAxZjljOWZiYWYyMzAiLCJyb2xlIjoiTUVNQkVSIiwiaWF0IjoxNzkyOTk0NDU0LCJleHAiOjE3OTM1OTkyNTR9.5Xxiqa6iafCaIgXiyZ9FhO1T5-zWFjpDE2HrlgqB_oE","timestamp":"2026-10-26T06:00:54.994Z","user":{"email":"munna@gmail.com","firstName":"munna","id":"6ad6660c7a001f9c9fbaf230","isActive":true,"isEmailVerified":true,"lastName":"mk","phone":"7845147854","role":"MEMBER"}}
 {"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWQ2NjVhODdhMDAxZjljOWZiYWYyMmUiLCJyb2xlIjoiTUVNQkVSIiwiaWF0IjoxNzkzMDEzNTYwLCJleHAiOjE3OTMwMTUzNjB9.sBvKj74JODQJpvmbwPuHdjvkgVrI1JIaN0ZSocaJHy4","level":"info","message":"Login successful","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWQ2NjVhODdhMDAxZjljOWZiYWYyMmUiLCJyb2xlIjoiTUVNQkVSIiwiaWF0IjoxNzkzMDEzNTYwLCJleHAiOjE3OTM2MTgzNjB9.TO2lxcH7rMW-vD1HEN7RTIs0WpwDguwqZKb9vKk7jSU","timestamp":"2026-10-26T11:19:20.793Z","user":{"email":"jamshe@gmail.com","firstName":"jamshe","id":"6ad665a87a001f9c9fbaf22e","isActive":true,"isEmailVerified":true,"lastName":"shifa","phone":"7845124578","role":"MEMBER"}}
+{"level":"info","message":"MongoDB connected","timestamp":"2026-10-26T12:05:33.031Z"}
+{"level":"info","message":"server running on port http://localhost:5000","timestamp":"2026-10-26T12:05:33.065Z"}
+{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWQ2NjQ1ZjdhMDAxZjljOWZiYWYyMmMiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3OTMwMTYzNTEsImV4cCI6MTc5MzAxODE1MX0.Bh3ksaJZ0Do5LYw3PuL0H1KeHdVI_-f3yO8Vyg4tt90","level":"info","message":"Login successful","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWQ2NjQ1ZjdhMDAxZjljOWZiYWYyMmMiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3OTMwMTYzNTEsImV4cCI6MTc5MzYyMTE1MX0.MEhyzo2LeIlzZcDio9dzvRl8JkPPo0VD-hgI4pPccjw","timestamp":"2026-10-26T12:05:51.898Z","user":{"email":"shifa@gmail.com","firstName":"Fareeda","id":"6ad6645f7a001f9c9fbaf22c","isActive":true,"isEmailVerified":true,"lastName":"Beegum","phone":"9544607415","role":"ADMIN"}}
+{"level":"info","message":"MongoDB connected","timestamp":"2026-10-26T12:07:29.582Z"}
+{"level":"info","message":"server running on port http://localhost:5000","timestamp":"2026-10-26T12:07:29.605Z"}
+{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWQ2NjQ1ZjdhMDAxZjljOWZiYWYyMmMiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3OTMwMTY0NTUsImV4cCI6MTc5MzAxODI1NX0.J9J-lpMb7bXRe62LnkEidUS_xu9aGUhKH08glyWEY50","level":"info","message":"Login successful","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWQ2NjQ1ZjdhMDAxZjljOWZiYWYyMmMiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3OTMwMTY0NTUsImV4cCI6MTc5MzYyMTI1NX0.6-cXVogOg3jZqnn8nv7LwIoGjpImprlJ0ZUZOcPhViU","timestamp":"2026-10-26T12:07:35.852Z","user":{"email":"shifa@gmail.com","firstName":"Fareeda","id":"6ad6645f7a001f9c9fbaf22c","isActive":true,"isEmailVerified":true,"lastName":"Beegum","phone":"9544607415","role":"ADMIN"}}
+{"level":"info","message":"MongoDB connected","timestamp":"2026-10-26T12:45:26.090Z"}
+{"level":"info","message":"server running on port http://localhost:5000","timestamp":"2026-10-26T12:45:26.118Z"}
+{"level":"info","message":"MongoDB connected","timestamp":"2026-10-26T12:51:59.369Z"}
+{"level":"info","message":"server running on port http://localhost:5000","timestamp":"2026-10-26T12:51:59.399Z"}
+{"level":"info","message":"MongoDB connected","timestamp":"2026-10-26T12:53:15.940Z"}
+{"level":"info","message":"server running on port http://localhost:5000","timestamp":"2026-10-26T12:53:15.961Z"}
+{"level":"info","message":"MongoDB connected","timestamp":"2026-10-26T12:54:12.698Z"}
+{"level":"info","message":"server running on port http://localhost:5000","timestamp":"2026-10-26T12:54:12.746Z"}
+{"level":"info","message":"MongoDB connected","timestamp":"2026-10-26T12:55:02.348Z"}
+{"level":"info","message":"server running on port http://localhost:5000","timestamp":"2026-10-26T12:55:02.369Z"}
+{"level":"info","message":"MongoDB connected","timestamp":"2026-10-26T12:56:10.790Z"}
+{"level":"info","message":"server running on port http://localhost:5000","timestamp":"2026-10-26T12:56:10.806Z"}
+{"level":"info","message":"MongoDB connected","timestamp":"2026-10-26T12:56:36.247Z"}
+{"level":"info","message":"server running on port http://localhost:5000","timestamp":"2026-10-26T12:56:36.265Z"}
+{"level":"info","message":"MongoDB connected","timestamp":"2026-10-26T12:58:12.754Z"}
+{"level":"info","message":"server running on port http://localhost:5000","timestamp":"2026-10-26T12:58:12.773Z"}
+{"level":"info","message":"MongoDB connected","timestamp":"2026-10-26T12:59:15.572Z"}
+{"level":"info","message":"server running on port http://localhost:5000","timestamp":"2026-10-26T12:59:15.599Z"}
+{"level":"info","message":"MongoDB connected","timestamp":"2026-10-26T13:00:28.829Z"}
+{"level":"info","message":"server running on port http://localhost:5000","timestamp":"2026-10-26T13:00:28.849Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T13:03:38.272Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T13:03:38.291Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T13:03:39.349Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T13:03:39.371Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T13:03:39.474Z"}
+{"count":7,"level":"info","limit":10,"message":"Invitations fetched successfully","page":1,"timestamp":"2026-10-26T13:03:39.604Z"}
+{"level":"info","limit":10,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-26T13:03:43.310Z","total":6}
+{"error":"Unable to deactivate this member because they are part of a team.","level":"error","message":"Failed to deactivate user","targetUserId":"6ad665a87a001f9c9fbaf22e","timestamp":"2026-10-26T13:03:49.021Z"}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-26T13:03:58.383Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","limit":100,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-26T13:03:58.438Z","total":6}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-26T13:03:58.454Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T13:53:45.288Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T13:53:45.383Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T13:53:45.596Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T13:53:45.761Z"}
+{"level":"info","message":"Teams fetched successfully","role":"MEMBER","timestamp":"2026-10-26T13:53:48.429Z","userId":"6ad665a87a001f9c9fbaf22e"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T13:53:52.538Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T13:53:52.693Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T13:56:38.412Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T13:56:38.597Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T13:56:38.837Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T13:56:45.971Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T13:56:46.019Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T13:56:46.036Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T13:58:01.462Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T13:58:01.499Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T13:58:01.506Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T13:58:17.669Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T13:58:17.679Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T13:58:17.686Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T14:00:15.334Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T14:00:15.450Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:00:16.391Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:00:31.440Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:00:31.452Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:00:33.027Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:00:33.063Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:00:33.459Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:01:34.431Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:01:34.444Z"}
+{"level":"info","message":"Story updated successfully","projectId":"6adf36c0efa8ff7cf4216993","storyId":"6adf3962efa8ff7cf421699b","timestamp":"2026-10-26T14:01:39.880Z","userId":"6ad665a87a001f9c9fbaf22e"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:01:39.906Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:01:45.719Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:01:45.726Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:01:48.683Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:01:48.685Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:07:48.149Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:07:48.175Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:07:54.961Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:07:55.010Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:07:55.024Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:08:07.008Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:08:07.016Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:08:15.248Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:08:15.252Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:08:16.691Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:08:16.696Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:08:32.164Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:08:32.167Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:09:05.641Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:09:05.648Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:11:04.222Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:11:04.283Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:11:04.306Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:11:05.410Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:11:05.418Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:19:00.418Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:19:00.494Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:19:00.499Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T14:22:16.427Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T14:22:16.439Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:22:17.056Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:22:17.319Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:22:17.339Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T14:22:39.854Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T14:22:39.861Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:22:40.481Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:22:40.692Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:22:40.700Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:22:42.826Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:22:43.197Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:22:43.223Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:23:02.198Z"}
+{"count":2,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:23:02.254Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf36c0efa8ff7cf4216993","timestamp":"2026-10-26T14:23:02.275Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:23:10.228Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T14:32:11.663Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T14:32:11.798Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T14:32:11.940Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T14:32:12.004Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T14:32:12.974Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T14:32:13.002Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:32:13.188Z"}
+{"level":"info","limit":10,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-26T14:32:17.306Z","total":6}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:32:18.747Z"}
+{"level":"info","limit":10,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-26T14:32:20.840Z","total":6}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:43:58.365Z"}
+{"level":"info","limit":10,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-26T14:43:58.975Z","total":6}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T14:44:03.825Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T14:44:04.001Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:44:04.177Z"}
+{"level":"info","limit":10,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-26T14:44:04.463Z","total":6}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-26T14:44:10.997Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-26T14:44:11.124Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","limit":100,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-26T14:44:11.131Z","total":6}
+{"level":"info","message":"Team members fetched successfully","teamId":"6adf3d50efa8ff7cf421699c","timestamp":"2026-10-26T14:45:12.795Z"}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-26T14:45:53.999Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"count":0,"level":"info","message":"Available team members fetched successfully","timestamp":"2026-10-26T14:45:54.048Z"}
+{"level":"info","message":"Team members fetched successfully","teamId":"6adf3d50efa8ff7cf421699c","timestamp":"2026-10-26T14:47:03.092Z"}
+{"level":"info","message":"Team fetched successfully","teamId":"6adf3d50efa8ff7cf421699c","timestamp":"2026-10-26T14:47:03.133Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"count":0,"level":"info","message":"Available team members fetched successfully","timestamp":"2026-10-26T14:47:03.273Z"}
+{"level":"info","message":"Team members fetched successfully","teamId":"6adf3d50efa8ff7cf421699c","timestamp":"2026-10-26T14:47:03.316Z"}
+{"count":0,"level":"info","message":"Available team members fetched successfully","timestamp":"2026-10-26T14:47:06.931Z"}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-26T14:47:06.947Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","limit":10,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-26T14:48:22.330Z","total":6}
+{"adminId":"6ad6645f7a001f9c9fbaf22c","level":"info","message":"Invitation created successfully","timestamp":"2026-10-26T14:48:39.105Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T14:49:25.719Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-26T14:49:26.100Z"}
+{"level":"info","message":"Invitation accepted successfully","timestamp":"2026-10-26T14:49:49.907Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:49:50.192Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:49:50.345Z"}
+{"level":"info","limit":10,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-26T14:49:58.271Z","total":7}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:49:58.345Z"}
+{"count":1,"level":"info","message":"Available team members fetched successfully","timestamp":"2026-10-26T14:50:00.639Z"}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-26T14:50:00.782Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","message":"Team created successfully","timestamp":"2026-10-26T14:50:26.074Z"}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-26T14:50:26.106Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","limit":100,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-26T14:50:34.063Z","total":7}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-26T14:50:34.118Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","message":"Team members fetched successfully","teamId":"6adf68b2e0a29dd942fb7fb3","timestamp":"2026-10-26T14:51:26.383Z"}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-26T14:51:53.275Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:55:29.453Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:56:14.048Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:56:19.211Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:56:48.807Z"}
+{"level":"info","message":"User logged out","timestamp":"2026-10-26T14:56:52.042Z"}
+{"level":"info","message":"Login successful","timestamp":"2026-10-26T14:57:06.066Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:57:06.320Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T14:57:06.694Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:57:29.075Z"}
+{"count":0,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:57:29.093Z"}
+{"level":"info","message":"Epic created successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:58:05.466Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:58:05.508Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:58:13.652Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:58:13.689Z"}
+{"level":"info","message":"Story created successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:59:03.752Z","userId":"6ad665a87a001f9c9fbaf22e"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:59:03.832Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:59:25.934Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:59:25.952Z"}
+{"epicId":"6adf6a7de0a29dd942fb7fba","error":"Cannot archive an epic that contains stories. Archive or move its stories first.","level":"warn","message":"Epic archive request failed","status":400,"timestamp":"2026-10-26T14:59:35.531Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:59:48.087Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:59:49.113Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:59:50.330Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:59:53.518Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:59:53.874Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:59:54.740Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:59:55.036Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:59:55.407Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T14:59:57.684Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T15:00:00.669Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T15:00:02.593Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T15:06:45.665Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T15:06:46.293Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T15:06:46.705Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-26T15:18:30.692Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T15:18:31.096Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-26T15:18:31.154Z"}
+{"level":"info","message":"MongoDB connected","timestamp":"2026-10-30T17:42:55.078Z"}
+{"level":"info","message":"server running on port http://localhost:5000","timestamp":"2026-10-30T17:42:55.107Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T17:43:53.828Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T17:43:53.871Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T17:43:54.107Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T17:43:54.438Z"}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-30T17:44:06.022Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"count":0,"level":"info","message":"Available team members fetched successfully","timestamp":"2026-10-30T17:44:06.183Z"}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-30T17:44:26.679Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","limit":100,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-30T17:44:26.919Z","total":7}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T17:45:06.666Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T17:45:06.794Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T17:45:07.049Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T17:45:07.691Z"}
+{"level":"info","message":"Teams fetched successfully","role":"MEMBER","timestamp":"2026-10-30T17:45:28.864Z","userId":"6ad665a87a001f9c9fbaf22e"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T17:45:44.267Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T17:45:44.369Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T17:55:39.418Z"}
+{"level":"info","limit":100,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-30T17:55:39.529Z","total":7}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-30T17:55:39.578Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T17:55:39.675Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T17:55:39.818Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T17:55:39.846Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T17:55:44.111Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T17:55:44.136Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T17:55:44.724Z"}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-30T17:55:44.897Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-30T17:55:45.376Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","limit":100,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-30T17:55:45.401Z","total":7}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T17:55:57.662Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T17:55:57.732Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T17:55:57.895Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T17:56:01.302Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T17:56:01.318Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T17:56:17.223Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T17:56:17.240Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T17:58:06.243Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T17:58:06.319Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T17:58:06.324Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T17:58:16.759Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T17:58:21.031Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T17:58:21.359Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T17:58:21.436Z"}
+{"level":"info","limit":100,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-30T17:58:23.194Z","total":7}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-30T17:58:23.197Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T17:58:49.498Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T17:58:49.545Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T17:58:49.559Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T18:02:28.085Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T18:02:28.126Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T18:02:29.178Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:02:29.561Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:02:29.619Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T18:02:54.179Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:02:54.229Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:02:54.234Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T18:10:47.852Z"}
+{"level":"info","limit":100,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-30T18:10:48.013Z","total":7}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-30T18:10:48.024Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T18:10:50.189Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T18:10:50.201Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T18:10:50.355Z"}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-30T18:10:50.472Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","limit":100,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-30T18:10:50.686Z","total":7}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-30T18:10:50.708Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T18:17:10.112Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:17:10.829Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:17:11.059Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:19:45.059Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:19:45.069Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:20:19.910Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:20:19.918Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:20:38.244Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:20:38.252Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:21:03.454Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:21:03.466Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T18:22:45.305Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:22:45.366Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:22:45.377Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T18:35:10.600Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T18:35:10.893Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T18:35:10.958Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:35:11.403Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:35:11.411Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:35:23.529Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:35:24.015Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:36:07.691Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:36:07.741Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T18:36:10.732Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T18:36:10.751Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T18:36:11.022Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:36:11.198Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:36:11.237Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:36:41.483Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:36:41.504Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:36:53.763Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:36:53.783Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:38:24.809Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:38:24.820Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:50:02.141Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:50:02.167Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T18:50:04.184Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T18:50:04.235Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T18:50:04.315Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T18:50:04.362Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T18:50:04.525Z"}
+{"level":"info","limit":100,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-30T18:50:05.062Z","total":7}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-30T18:50:05.600Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T18:50:06.625Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T18:50:06.790Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T18:50:06.863Z"}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-30T18:50:07.195Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"level":"info","limit":100,"message":"Users fetched successfully","page":1,"timestamp":"2026-10-30T18:50:07.370Z","total":7}
+{"level":"info","message":"Teams fetched successfully","role":"ADMIN","timestamp":"2026-10-30T18:50:07.398Z","userId":"6ad6645f7a001f9c9fbaf22c"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:51:33.430Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:51:33.471Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T18:51:36.020Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:51:36.026Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:51:36.029Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:51:47.356Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:51:47.380Z"}
+{"level":"info","message":"Story updated successfully","projectId":"6adf6902e0a29dd942fb7fb5","storyId":"6adf6ab7e0a29dd942fb7fbb","timestamp":"2026-10-30T18:52:04.690Z","userId":"6ad665a87a001f9c9fbaf22e"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:52:04.714Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:52:08.379Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:52:08.386Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:52:15.795Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:52:15.808Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T18:52:43.227Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:52:43.245Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:52:43.248Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:52:46.122Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:52:46.127Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:52:49.380Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:52:49.386Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:52:51.186Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:52:51.188Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:52:56.340Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T18:52:56.348Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T19:42:12.447Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T19:42:12.548Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T19:42:17.416Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T19:42:17.899Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T19:42:17.944Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T19:48:21.333Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T19:48:21.351Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T19:52:41.027Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T19:52:41.751Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T19:52:41.812Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T19:52:57.318Z"}
+{"level":"info","message":"Refresh token renewed","timestamp":"2026-10-30T19:52:57.369Z"}
+{"level":"info","message":"Organization fetched successfully","timestamp":"2026-10-30T19:52:58.939Z"}
+{"count":1,"includeArchived":false,"level":"info","message":"Project epics fetched successfully","projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T19:52:59.233Z"}
+{"level":"info","limit":100,"message":"Project stories fetched successfully","page":1,"projectId":"6adf6902e0a29dd942fb7fb5","timestamp":"2026-10-30T19:52:59.248Z"}

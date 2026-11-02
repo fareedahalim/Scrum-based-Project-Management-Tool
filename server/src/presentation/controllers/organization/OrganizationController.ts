@@ -1,87 +1,144 @@
+
 import { inject, injectable } from "tsyringe";
+import { Request, Response } from "express";
+
 import { ICreateOrganizationUseCase } from "../../../application/interface/organization/ICreateOrganizationUseCase";
 import { IGetOrganizationUseCase } from "../../../application/interface/organization/IGetOrganizationUseCase";
-import { Request, Response } from "express";
+import { IUpdateOrganizationUseCase } from "../../../application/interface/organization/IUpdateOrganizationUseCase";
+
 import { HTTP_STATUS } from "../../../domain/constants/httpStatus";
 import { MESSAGES } from "../../../domain/constants/messages";
-import { ERROR_MESSAGES, ORGANIZATION_ERRORS } from "../../../domain/constants/errorMessages";
+import { ORGANIZATION_ERRORS } from "../../../domain/constants/errorMessages";
+
 import { OrganizationDTO } from "../../../application/dtos/organization/requestDTOs/OrganizationDTO";
-import { IUpdateOrganizationUseCase } from "../../../application/interface/organization/IUpdateOrganizationUseCase";
+import logger from "../../../config/logger";
 
 @injectable()
 export class OrganizationController {
-
     constructor(
-        @inject('ICreateOrganizationUseCase') private readonly _createOrganizationUseCase: ICreateOrganizationUseCase,
-        @inject('IGetOrganizationUseCase') private readonly _getOrganizationUseCase: IGetOrganizationUseCase,
-        @inject('IUpdateOrganizationUseCase') private readonly _updateOrganizationUseCase: IUpdateOrganizationUseCase,
-    ) { }
+        @inject("ICreateOrganizationUseCase")
+        private readonly _createOrganizationUseCase: ICreateOrganizationUseCase,
 
-    createOrganization = async (req: Request, res: Response): Promise<void> => {
+        @inject("IGetOrganizationUseCase")
+        private readonly _getOrganizationUseCase: IGetOrganizationUseCase,
+
+        @inject("IUpdateOrganizationUseCase")
+        private readonly _updateOrganizationUseCase: IUpdateOrganizationUseCase
+    ) {}
+
+    createOrganization = async (
+        req: Request,
+        res: Response
+    ): Promise<void> => {
         try {
-            console.log('entering to organization  controller ')
             const dto: OrganizationDTO = {
                 name: req.body.name,
                 logo: req.body.logo,
                 description: req.body.description,
-                website: req.body.website
-            }
+                website: req.body.website,
+            };
 
-            const response = await this._createOrganizationUseCase.execute(dto)
-            res.status(HTTP_STATUS.OK).json({ message: MESSAGES.ORGANIZATION.ORGANIZATION_SETUP_COMPLETED, data: response })
-        } catch (error) {
+            const response =
+                await this._createOrganizationUseCase.execute(dto);
+
+            logger.info("Organization created successfully");
+
+            res.status(HTTP_STATUS.OK).json({
+                message: MESSAGES.ORGANIZATION.ORGANIZATION_SETUP_COMPLETED,
+                data: response,
+            });
+        } catch (error: unknown) {
             const message =
                 error instanceof Error
                     ? error.message
                     : ORGANIZATION_ERRORS.ORGANIZATION_CREATION_FAILED;
 
+            logger.error("Failed to create organization", {
+                error: message,
+            });
+
             res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
                 message,
             });
         }
-    }
+    };
 
-
-    getOrganization = async (req: Request, res: Response): Promise<void> => {
+    getOrganization = async (
+        req: Request,
+        res: Response
+    ): Promise<void> => {
         try {
-            const response = await this._getOrganizationUseCase.execute();
+            const response =
+                await this._getOrganizationUseCase.execute();
 
             if (!response) {
-                res.status(HTTP_STATUS.NOT_FOUND).json({ message: ORGANIZATION_ERRORS.ORGANIZATION_NOT_FOUND, data: null });
+                logger.warn("Organization not found");
+
+                res.status(HTTP_STATUS.NOT_FOUND).json({
+                    message: ORGANIZATION_ERRORS.ORGANIZATION_NOT_FOUND,
+                    data: null,
+                });
                 return;
             }
 
-            res.status(HTTP_STATUS.OK).json({ message: MESSAGES.ORGANIZATION.ORGANIZATION_FETCHED_SUCCUSSFULLY, data: response })
+            logger.info("Organization fetched successfully");
 
-        } catch (error) {
-            const message = error instanceof Error ? error.message : ORGANIZATION_ERRORS.ORGANIZATION_FETCHED_FAILED;
-            res.status(HTTP_STATUS.NOT_FOUND).json({ message })
+            res.status(HTTP_STATUS.OK).json({
+                message:
+                    MESSAGES.ORGANIZATION.ORGANIZATION_FETCHED_SUCCUSSFULLY,
+                data: response,
+            });
+        } catch (error: unknown) {
+            const message =
+                error instanceof Error
+                    ? error.message
+                    : ORGANIZATION_ERRORS.ORGANIZATION_FETCHED_FAILED;
+
+            logger.error("Failed to fetch organization", {
+                error: message,
+            });
+
+            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                message,
+            });
         }
+    };
 
-    }
-
-    updateOrganization = async (req: Request, res: Response): Promise<void> => {
+    updateOrganization = async (
+        req: Request,
+        res: Response
+    ): Promise<void> => {
         try {
-            console.log('entering to updated organization of organization  controller  ')
             const dto: OrganizationDTO = {
                 name: req.body.name,
                 logo: req.body.logo,
                 description: req.body.description,
-                website: req.body.website
-            }
+                website: req.body.website,
+            };
 
-            const response = await this._updateOrganizationUseCase.execute(dto);
+            const response =
+                await this._updateOrganizationUseCase.execute(dto);
 
-res.status(HTTP_STATUS.OK).json({
-    message: MESSAGES.ORGANIZATION.ORGANIZATION_UPDATED_SUCCESSFULLY,
-    data: response
-});
-        } catch (error) {
-            const message = error instanceof Error ? error.message : ORGANIZATION_ERRORS.ORGANIZATION_UPDATION_FAILED;
-            res.status(HTTP_STATUS.NOT_FOUND).json({ message })
+            logger.info("Organization updated successfully");
 
+            res.status(HTTP_STATUS.OK).json({
+                message:
+                    MESSAGES.ORGANIZATION.ORGANIZATION_UPDATED_SUCCESSFULLY,
+                data: response,
+            });
+        } catch (error: unknown) {
+            const message =
+                error instanceof Error
+                    ? error.message
+                    : ORGANIZATION_ERRORS.ORGANIZATION_UPDATION_FAILED;
+
+            logger.error("Failed to update organization", {
+                error: message,
+            });
+
+            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                message,
+            });
         }
-
-    }
-
+    };
 }

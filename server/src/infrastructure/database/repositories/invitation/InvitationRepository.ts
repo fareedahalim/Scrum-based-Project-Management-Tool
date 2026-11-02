@@ -4,7 +4,6 @@ import { IInvitationRepository, InvitationSearchParams, PaginatedInvitations } f
 import { IInvitationEntity } from "../../../../domain/entities/Invitation/IInvitationEntity";
 
 import {
-  InvitationDocument,
   InvitationModel,
 } from "../../models/Invitation/InvitationModel";
 

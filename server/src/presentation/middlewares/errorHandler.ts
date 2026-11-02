@@ -8,6 +8,8 @@ export const errorHandler = (
     res: Response,
     next: NextFunction
 ): void => {
+    void next;
+
     const statusCode =
         error instanceof AppError ? error.statusCode : 500;
 

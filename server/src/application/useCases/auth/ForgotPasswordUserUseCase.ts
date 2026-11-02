@@ -3,7 +3,6 @@ import { IForgotPasswordUserUseCase } from "../../interface/auth/IForgotPassword
 import { IUserRepository } from "../../../domain/interfaces/repositories/User/IUserRepository";
 import { ForgotPasswordDTO } from "../../dtos/auth/requestDTOs/ForgotPasswordDTO";
 import { USER_ERRORS } from "../../../domain/constants/errorMessages";
-import { IPasswordService } from "../../../domain/interfaces/services/IPasswordService";
 import { IOtpRepository } from "../../../domain/interfaces/repositories/Otp/IOtpRepository";
 import { IEmailService } from "../../../domain/interfaces/services/IEmailService";
 import { IOtpEntity } from "../../../domain/entities/Otp/IOtpEntity";

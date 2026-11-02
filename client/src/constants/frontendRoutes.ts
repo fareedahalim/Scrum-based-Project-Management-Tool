@@ -27,6 +27,7 @@ export const FRONTEND_ROUTES = {
     EDIT_PROJECT: '/projects/:projectId/edit',
 
     PRODUCT_BACKLOG: "/projects/:projectId/backlog",
+    BACKLOG_REVIEW: "/projects/:projectId/backlog/review",
     STORY_BACKLOG: "/projects/:projectId/stories",
 
     NOTIFICATIONS: "/notifications",

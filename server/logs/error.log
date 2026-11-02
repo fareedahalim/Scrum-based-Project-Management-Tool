@@ -17,3 +17,4 @@
 {"level":"error","message":"Login failed","timestamp":"2026-10-24T20:54:18.873Z"}
 {"level":"error","message":"Login failed","timestamp":"2026-10-26T05:23:40.712Z"}
 {"level":"error","message":"Login failed","timestamp":"2026-10-26T05:23:46.820Z"}
+{"error":"Unable to deactivate this member because they are part of a team.","level":"error","message":"Failed to deactivate user","targetUserId":"6ad665a87a001f9c9fbaf22e","timestamp":"2026-10-26T13:03:49.021Z"}

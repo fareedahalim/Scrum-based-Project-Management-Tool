@@ -14,7 +14,6 @@ import { ProjectMemberStatus } from "../../../domain/enums/ProjectMemberStatus";
 import { ProjectScrumRole } from "../../../domain/enums/ProjectScrumRole";
 import { PROJECT_ERRORS } from "../../../domain/constants/errorMessages";
 
-import { ProjectMemberMapper } from "../../../infrastructure/mappers/ProjectMemberMapper";
 
 @injectable()
 export class AddProjectMemberUseCase implements IAddProjectMemberUseCase {

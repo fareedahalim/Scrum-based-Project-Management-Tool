@@ -5,7 +5,7 @@ import { IUserRepository } from "../../../../domain/interfaces/repositories/User
 import { Model } from "mongoose";
 import { UserDocument, UserModel } from "../../models/User/UserModel";
 import { UserMapper } from "../../../mappers/UserMapper";
-import { ERROR_MESSAGES, USER_ERRORS } from "../../../../domain/constants/errorMessages";
+import { USER_ERRORS } from "../../../../domain/constants/errorMessages";
 
 import type {
     UserSearchParams,
@@ -102,7 +102,7 @@ export class UserRepository extends BaseRepo<IUserEntity> implements IUserReposi
 
         const [userDocs, total] = await Promise.all([
             UserModel.find(filter)
-                .sort({ createdAt: -1 })
+                .sort({ createdAt: 1 })
                 .skip(skip)
                 .limit(limit),
 

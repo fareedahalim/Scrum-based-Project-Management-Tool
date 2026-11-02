@@ -1,5 +1,4 @@
 import mongoose, { Document, Types } from "mongoose";
-import { IInvitationEntity } from "../../../../domain/entities/Invitation/IInvitationEntity";
 
 export interface InvitationDocument
     extends Document {

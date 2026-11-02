@@ -9,6 +9,10 @@ import { IUpdateTeamUseCase } from "../../../application/interface/team/IUpdateT
 import { IAddTeamMemberUseCase } from "../../../application/interface/team/IAddTeamMemberUseCase";
 import { IRemoveTeamMemberUseCase } from "../../../application/interface/team/IRemoveTeamMemberUseCase";
 import { IChangeTeamLeadUseCase } from "../../../application/interface/team/IChangeTeamLeadUseCase";
+import { IGetTeamMembersUseCase } from "../../../application/interface/team/IGetTeamMembersUseCase";
+import { IGetAvailableTeamMembersUseCase } from "../../../application/interface/team/IGetAvailableTeamMeamberUseCase";
+import { IDeleteTeamUseCase } from "../../../application/interface/team/IDeleteTeamUseCase";
+import { IGetMyTeamUseCase } from "../../../application/interface/team/IGetMyTeamUseCase";
 
 import { CreateTeamDTO } from "../../../application/dtos/team/requestDTOs/CreateTeamDTO";
 import { UpdateTeamDTO } from "../../../application/dtos/team/requestDTOs/UpdateTeamDTO";
@@ -20,10 +24,7 @@ import { HTTP_STATUS } from "../../../domain/constants/httpStatus";
 import { TEAM_ERRORS } from "../../../domain/constants/errorMessages";
 
 import { AuthRequest } from "../../middlewares/auth/authMiddleware";
-import { IGetTeamMembersUseCase } from "../../../application/interface/team/IGetTeamMembersUseCase";
-import { IGetAvailableTeamMembersUseCase } from "../../../application/interface/team/IGetAvailableTeamMeamberUseCase";
-import { IDeleteTeamUseCase } from "../../../application/interface/team/IDeleteTeamUseCase";
-import { IGetMyTeamUseCase } from "../../../application/interface/team/IGetMyTeamUseCase";
+import logger from "../../../config/logger";
 
 @injectable()
 export class TeamController {
@@ -49,14 +50,18 @@ export class TeamController {
         @inject("IChangeTeamLeadUseCase")
         private _changeTeamLeadUseCase: IChangeTeamLeadUseCase,
 
-        @inject("IGetTeamMembersUseCase") private readonly _getTeamMembersUseCase: IGetTeamMembersUseCase,
+        @inject("IGetTeamMembersUseCase")
+        private readonly _getTeamMembersUseCase: IGetTeamMembersUseCase,
 
-        @inject("IGetAvailableTeamMembersUseCase") private readonly _getAvailableTeamMembersUseCase: IGetAvailableTeamMembersUseCase,
-       
-        @inject("IDeleteTeamUseCase") private readonly _deleteTeamUseCase: IDeleteTeamUseCase,
+        @inject("IGetAvailableTeamMembersUseCase")
+        private readonly _getAvailableTeamMembersUseCase: IGetAvailableTeamMembersUseCase,
 
-        @inject("IGetMyTeamUseCase") private readonly _getMyTeamUseCase: IGetMyTeamUseCase,
-    ) { }
+        @inject("IDeleteTeamUseCase")
+        private readonly _deleteTeamUseCase: IDeleteTeamUseCase,
+
+        @inject("IGetMyTeamUseCase")
+        private readonly _getMyTeamUseCase: IGetMyTeamUseCase
+    ) {}
 
     // Create Team
     createTeam = async (
@@ -66,12 +71,12 @@ export class TeamController {
         try {
             const dto: CreateTeamDTO = req.body;
 
-            const team =
-                await this._createTeamUseCase.execute(dto);
+            const team = await this._createTeamUseCase.execute(dto);
 
-            res.status(201).json({
-                message:
-                    MESSAGES.TEAM.TEAM_CREATED_SUCCESSFULLY,
+            logger.info("Team created successfully");
+
+            res.status(HTTP_STATUS.CREATED).json({
+                message: MESSAGES.TEAM.TEAM_CREATED_SUCCESSFULLY,
                 data: team,
             });
         } catch (error) {
@@ -80,11 +85,13 @@ export class TeamController {
                     ? error.message
                     : TEAM_ERRORS.TEAM_CREATION_FAILED;
 
-            res
-                .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-                .json({
-                    message,
-                });
+            logger.error("Failed to create team", {
+                error: message,
+            });
+
+            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                message,
+            });
         }
     };
 
@@ -97,15 +104,18 @@ export class TeamController {
             const userId = req.user!.userId;
             const role = req.user!.role;
 
-            const teams =
-                await this._getTeamsUseCase.execute(
-                    userId,
-                    role
-                );
+            const teams = await this._getTeamsUseCase.execute(
+                userId,
+                role
+            );
 
-            res.status(200).json({
-                message:
-                    MESSAGES.TEAM.TEAMS_FETCHED_SUCCESSFULLY,
+            logger.info("Teams fetched successfully", {
+                userId,
+                role,
+            });
+
+            res.status(HTTP_STATUS.OK).json({
+                message: MESSAGES.TEAM.TEAMS_FETCHED_SUCCESSFULLY,
                 data: teams,
             });
         } catch (error) {
@@ -114,11 +124,13 @@ export class TeamController {
                     ? error.message
                     : TEAM_ERRORS.TEAMS_FETCH_FAILED;
 
-            res
-                .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-                .json({
-                    message,
-                });
+            logger.error("Failed to fetch teams", {
+                error: message,
+            });
+
+            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                message,
+            });
         }
     };
 
@@ -127,22 +139,25 @@ export class TeamController {
         req: AuthRequest,
         res: Response
     ): Promise<void> => {
-        try {
-            const { teamId } = req.params;
+        const teamId = req.params.teamId as string;
 
+        try {
             const userId = req.user!.userId;
             const role = req.user!.role;
 
-            const team =
-                await this._getTeamByIdUseCase.execute(
-                    teamId as string,
-                    userId,
-                    role
-                );
+            const team = await this._getTeamByIdUseCase.execute(
+                teamId,
+                userId,
+                role
+            );
 
-            res.status(200).json({
-                message:
-                    MESSAGES.TEAM.TEAM_FETCHED_SUCCESSFULLY,
+            logger.info("Team fetched successfully", {
+                teamId,
+                userId,
+            });
+
+            res.status(HTTP_STATUS.OK).json({
+                message: MESSAGES.TEAM.TEAM_FETCHED_SUCCESSFULLY,
                 data: team,
             });
         } catch (error) {
@@ -151,11 +166,14 @@ export class TeamController {
                     ? error.message
                     : TEAM_ERRORS.TEAM_FETCH_FAILED;
 
-            res
-                .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-                .json({
-                    message,
-                });
+            logger.error("Failed to fetch team", {
+                teamId,
+                error: message,
+            });
+
+            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                message,
+            });
         }
     };
 
@@ -164,20 +182,22 @@ export class TeamController {
         req: Request,
         res: Response
     ): Promise<void> => {
-        try {
-            const { teamId } = req.params;
+        const teamId = req.params.teamId as string;
 
+        try {
             const dto: UpdateTeamDTO = req.body;
 
-            const team =
-                await this._updateTeamUseCase.execute(
-                    teamId as string,
-                    dto
-                );
+            const team = await this._updateTeamUseCase.execute(
+                teamId,
+                dto
+            );
 
-            res.status(200).json({
-                message:
-                    MESSAGES.TEAM.TEAM_UPDATED_SUCCESSFULLY,
+            logger.info("Team updated successfully", {
+                teamId,
+            });
+
+            res.status(HTTP_STATUS.OK).json({
+                message: MESSAGES.TEAM.TEAM_UPDATED_SUCCESSFULLY,
                 data: team,
             });
         } catch (error) {
@@ -186,69 +206,77 @@ export class TeamController {
                     ? error.message
                     : TEAM_ERRORS.TEAM_UPDATION_FAILED;
 
-            res
-                .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-                .json({
-                    message,
-                });
+            logger.error("Failed to update team", {
+                teamId,
+                error: message,
+            });
+
+            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                message,
+            });
         }
     };
 
     // Add Team Member
     addTeamMember = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
-    const { teamId } = req.params;
+        req: Request,
+        res: Response
+    ): Promise<void> => {
+        const teamId = req.params.teamId as string;
 
-    const dto: AddTeamMemberDTO = req.body;
+        try {
+            const dto: AddTeamMemberDTO = req.body;
 
-    console.log("========== ADD TEAM MEMBER ==========");
-    console.log("Team ID:", teamId);
-    console.log("Request body:", dto);
+            await this._addTeamMemberUseCase.execute(
+                teamId,
+                dto
+            );
 
-    await this._addTeamMemberUseCase.execute(
-      teamId as string,
-      dto
-    );
+            logger.info("Team member added successfully", {
+                teamId,
+            });
 
-    console.log("Team member added successfully");
+            res.status(HTTP_STATUS.CREATED).json({
+                message: MESSAGES.TEAM.TEAM_MEMBER_ADDED_SUCCESSFULLY,
+            });
+        } catch (error) {
+            const message =
+                error instanceof Error
+                    ? error.message
+                    : TEAM_ERRORS.TEAM_MEMBER_ADD_FAILED;
 
-    res.status(201).json({
-      message:
-        MESSAGES.TEAM.TEAM_MEMBER_ADDED_SUCCESSFULLY,
-    });
+            logger.error("Failed to add team member", {
+                teamId,
+                error: message,
+            });
 
-  } catch (error) {
-    console.error("========== ADD TEAM MEMBER ERROR ==========");
-    console.error(error);
-
-    res.status(500).json({
-      message:
-        error instanceof Error
-          ? error.message
-          : TEAM_ERRORS.TEAM_MEMBER_ADD_FAILED,
-    });
-  }
-};
+            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                message,
+            });
+        }
+    };
 
     // Remove Team Member
     removeTeamMember = async (
         req: Request,
         res: Response
     ): Promise<void> => {
-        try {
-            const { teamId, userId } = req.params;
+        const teamId = req.params.teamId as string;
+        const userId = req.params.userId as string;
 
+        try {
             await this._removeTeamMemberUseCase.execute(
-                teamId as string,
-                userId as string
+                teamId,
+                userId
             );
 
-            res.status(200).json({
-                message:
-                    MESSAGES.TEAM.TEAM_MEMBER_REMOVED_SUCCESSFULLY,
+            logger.info("Team member removed successfully", {
+                teamId,
+                userId,
+            });
+
+            res.status(HTTP_STATUS.OK).json({
+                message: MESSAGES.TEAM.TEAM_MEMBER_REMOVED_SUCCESSFULLY,
             });
         } catch (error) {
             const message =
@@ -256,11 +284,15 @@ export class TeamController {
                     ? error.message
                     : TEAM_ERRORS.TEAM_MEMBER_REMOVE_FAILED;
 
-            res
-                .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-                .json({
-                    message,
-                });
+            logger.error("Failed to remove team member", {
+                teamId,
+                userId,
+                error: message,
+            });
+
+            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                message,
+            });
         }
     };
 
@@ -269,19 +301,22 @@ export class TeamController {
         req: Request,
         res: Response
     ): Promise<void> => {
-        try {
-            const { teamId } = req.params;
+        const teamId = req.params.teamId as string;
 
+        try {
             const dto: ChangeTeamLeadDTO = req.body;
 
             await this._changeTeamLeadUseCase.execute(
-                teamId as string,
+                teamId,
                 dto
             );
 
-            res.status(200).json({
-                message:
-                    MESSAGES.TEAM.TEAM_LEAD_CHANGED_SUCCESSFULLY,
+            logger.info("Team lead changed successfully", {
+                teamId,
+            });
+
+            res.status(HTTP_STATUS.OK).json({
+                message: MESSAGES.TEAM.TEAM_LEAD_CHANGED_SUCCESSFULLY,
             });
         } catch (error) {
             const message =
@@ -289,113 +324,156 @@ export class TeamController {
                     ? error.message
                     : TEAM_ERRORS.TEAM_LEAD_CHANGE_FAILED;
 
-            res
-                .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-                .json({
-                    message,
-                });
+            logger.error("Failed to change team lead", {
+                teamId,
+                error: message,
+            });
+
+            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                message,
+            });
         }
     };
 
-
+    // Get Team Members
     getTeamMembers = async (
         req: AuthRequest,
         res: Response,
         next: NextFunction
     ): Promise<void> => {
+        const teamId = req.params.teamId as string;
+
         try {
-            const teamId = req.params.teamId as string;
-
             const members =
-                await this._getTeamMembersUseCase.execute(
-                    teamId
-                );
+                await this._getTeamMembersUseCase.execute(teamId);
 
-            res.status(200).json({
+            logger.info("Team members fetched successfully", {
+                teamId,
+            });
+
+            res.status(HTTP_STATUS.OK).json({
                 message: MESSAGES.TEAM.TEAM_MEMBERS_FETCHED,
                 data: members,
             });
         } catch (error) {
+            logger.error("Failed to fetch team members", {
+                teamId,
+                error:
+                    error instanceof Error
+                        ? error.message
+                        : "Unknown error",
+            });
+
             next(error);
         }
     };
 
-
+    // Get Available Team Members
     getAvailableTeamMembers = async (
-  req: AuthRequest,
-  res: Response
-): Promise<void> => {
-  try {
-    console.log("ENTERED getAvailableTeamMembers controller");
+        req: AuthRequest,
+        res: Response
+    ): Promise<void> => {
+        try {
+            const users =
+                await this._getAvailableTeamMembersUseCase.execute();
 
-    const users =
-      await this._getAvailableTeamMembersUseCase.execute();
+            logger.info("Available team members fetched successfully", {
+                count: users.length,
+            });
 
-    console.log("AVAILABLE USERS:", users);
+            res.status(HTTP_STATUS.OK).json({
+                message: "Available team members fetched successfully",
+                data: users,
+            });
+        } catch (error) {
+            const message =
+                error instanceof Error
+                    ? error.message
+                    : "Failed to fetch available team members";
 
-    res.status(200).json({
-      message: "Available team members fetched successfully",
-      data: users,
-    });
-  } catch (error) {
-    console.error("AVAILABLE TEAM MEMBERS ERROR:", error);
+            logger.error("Failed to fetch available team members", {
+                error: message,
+            });
 
-    res.status(500).json({
-      message:
-        error instanceof Error
-          ? error.message
-          : "Failed to fetch available team members",
-    });
-  }
-};
+            res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                message,
+            });
+        }
+    };
 
-deleteTeam = async (
-    req: Request,
-    res: Response
-): Promise<void> => {
-    try {
-        const { teamId } = req.params;
+    // Delete Team
+    deleteTeam = async (
+        req: Request,
+        res: Response
+    ): Promise<void> => {
+        const teamId = req.params.teamId as string;
 
-        await this._deleteTeamUseCase.execute(teamId as string);
+        try {
+            await this._deleteTeamUseCase.execute(teamId);
 
-        res.status(HTTP_STATUS.OK).json({
-            message: "Team deleted successfully",
-        });
-    } catch (error) {
-    console.error("DELETE TEAM ERROR:", error);
+            logger.info("Team deleted successfully", {
+                teamId,
+            });
 
-    const message =
-        error instanceof Error
-            ? error.message
-            : "Failed to delete team";
+            res.status(HTTP_STATUS.OK).json({
+                message: "Team deleted successfully",
+            });
+        } catch (error) {
+            const message =
+                error instanceof Error
+                    ? error.message
+                    : "Failed to delete team";
 
-    const status =
-        message === TEAM_ERRORS.TEAM_NOT_FOUND
-            ? HTTP_STATUS.NOT_FOUND
-            : HTTP_STATUS.INTERNAL_SERVER_ERROR;
+            const status =
+                message === TEAM_ERRORS.TEAM_NOT_FOUND
+                    ? HTTP_STATUS.NOT_FOUND
+                    : HTTP_STATUS.INTERNAL_SERVER_ERROR;
 
-    res.status(status).json({ message });
-}
-};
+            if (status === HTTP_STATUS.NOT_FOUND) {
+                logger.warn("Team not found during deletion", {
+                    teamId,
+                    error: message,
+                });
+            } else {
+                logger.error("Failed to delete team", {
+                    teamId,
+                    error: message,
+                });
+            }
 
-// Get My Team
-getMyTeam = async (
-    req: AuthRequest,
-    res: Response,
-    next: NextFunction
-): Promise<void> => {
-    try {
+            res.status(status).json({ message });
+        }
+    };
+
+    // Get My Team
+    getMyTeam = async (
+        req: AuthRequest,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> => {
         const userId = req.user!.userId;
 
-        const team = await this._getMyTeamUseCase.execute(userId);
+        try {
+            const team = await this._getMyTeamUseCase.execute(userId);
 
-        res.status(HTTP_STATUS.OK).json({
-            message: "My team fetched successfully",
-            data: team,
-        });
-    } catch (error) {
-        next(error);
-    }
-};
+            logger.info("User team fetched successfully", {
+                userId,
+            });
+
+            res.status(HTTP_STATUS.OK).json({
+                message: "My team fetched successfully",
+                data: team,
+            });
+        } catch (error) {
+            logger.error("Failed to fetch user's team", {
+                userId,
+                error:
+                    error instanceof Error
+                        ? error.message
+                        : "Unknown error",
+            });
+
+            next(error);
+        }
+    };
 }
-

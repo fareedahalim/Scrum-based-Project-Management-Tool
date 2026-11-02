@@ -2,10 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { inject, injectable } from "tsyringe";
 
 import { IJwtService } from "../../../domain/interfaces/services/IJwtService";
-// import { ITo/kenBlacklistRepository } from "../../../domain/interfaces/repositories/ITokenBlacklistRepository";
-// import { IUserRepository } from "../../../domain/interfaces/repositories/IUserRepository";
 
-// import { JwtPayload } from "../../../domain/entities/IJwtPayload";
 
 import {
   ERROR_MESSAGES,
@@ -109,7 +106,7 @@ export class AuthMiddleware {
 
       // 8. Continue to controller
       next();
-    } catch (error) {
+    } catch {
       res.status(HTTP_STATUS.UNAUTHORIZED).json({
         message: ERROR_MESSAGES.INVALID_TOKEN,
       });
@@ -138,7 +135,7 @@ export class AuthMiddleware {
       }
 
       next();
-    } catch (error) {
+    } catch {
       res.status(HTTP_STATUS.FORBIDDEN).json({
         message: ERROR_MESSAGES.FORBIDDEN,
       });

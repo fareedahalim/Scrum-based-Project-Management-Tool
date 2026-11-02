@@ -2,7 +2,6 @@ import { inject, injectable } from "tsyringe";
 import { IRefreshTokenUseCase } from "../../interface/auth/IRefreshTokenUseCase";
 import { JwtService } from "../../../infrastructure/service/JwtService";
 import { UserRepository } from "../../../infrastructure/database/repositories/User/UserRepository";
-import { LoginResponseDTO } from "../../dtos/auth/responseDTOs/LoginResponseDTO";
 import { ERROR_MESSAGES, USER_ERRORS } from "../../../domain/constants/errorMessages";
 import { RefreshTokenDTO } from "../../dtos/auth/requestDTOs/RefreshTokenDTO";
 import { AuthDTOmapper } from "../../mappers/Auth/AuthDTOmappers";

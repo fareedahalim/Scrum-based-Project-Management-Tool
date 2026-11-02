@@ -10,7 +10,6 @@ import { IJwtService } from "../../../domain/interfaces/services/IJwtService";
 import { UserRoles } from "../../../domain/enums/UserRole";
 
 import {
-  ERROR_MESSAGES,
   USER_ERRORS,
 } from "../../../domain/constants/errorMessages";
 

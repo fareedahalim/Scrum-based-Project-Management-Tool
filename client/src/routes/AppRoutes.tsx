@@ -2,7 +2,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import { FRONTEND_ROUTES } from "../constants/frontendRoutes";
-
+// import BacklogReviewPage from "../pages/Project/BacklogReviewPage";
 import { LandingPage } from "../pages/Landing/LandingPage";
 import SignupPage from "../pages/Auth/SignupPage";
 import LoginPage from "../pages/Auth/LoginPage";
@@ -33,6 +33,7 @@ import ProjectDetailsPage from "../pages/Project/ProjectDetailsPage";
 import EditProjectPage from "../pages/Project/EditProjectPage";
 import ProductBacklogPage from "../pages/Project/ProductBacklogPage";
 import StoryBacklogPage from "../pages/Story/StoryBacklogPage";
+import BacklogReviewPage from "../pages/Project/BacklogReviewPage";
 // import GuestRoute from "./GuestRoute";
 
 const AppRoutes = () => {
@@ -116,7 +117,10 @@ const AppRoutes = () => {
               path={FRONTEND_ROUTES.PRODUCT_BACKLOG}
               element={<ProductBacklogPage />}
             />
-
+            <Route
+              path={FRONTEND_ROUTES.BACKLOG_REVIEW}
+              element={<BacklogReviewPage />}
+            />
             <Route
               path={FRONTEND_ROUTES.STORY_BACKLOG}
               element={<StoryBacklogPage />}

@@ -4,7 +4,7 @@ import { IUserRepository } from "../../../domain/interfaces/repositories/User/IU
 import { RegisterUserDTO } from "../../dtos/auth/requestDTOs/RegisterUserDTO";
 import { IPasswordService } from "../../../domain/interfaces/services/IPasswordService";
 import { ISendEmailOtpUseCase } from "../../interface/auth/ISendEmailOtpUseCase";
-import { ERROR_MESSAGES, USER_ERRORS } from "../../../domain/constants/errorMessages";
+import { USER_ERRORS } from "../../../domain/constants/errorMessages";
 
 @injectable()
 export class RegisterUserUseCase implements IRegisterUserCase {

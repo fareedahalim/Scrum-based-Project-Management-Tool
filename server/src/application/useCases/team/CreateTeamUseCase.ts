@@ -3,7 +3,7 @@ import { ICreateTeamUseCase } from "../../interface/team/ICreateTeamUseCase";
 import { ITeamRepository } from "../../../domain/interfaces/repositories/Team/ITeamRepository";
 import { CreateTeamDTO } from "../../dtos/team/requestDTOs/CreateTeamDTO";
 import { TeamResponseDTO } from "../../dtos/team/responseDTOs/TeamResponseDTO";
-import { ERROR_MESSAGES, TEAM_ERRORS } from "../../../domain/constants/errorMessages";
+import { TEAM_ERRORS } from "../../../domain/constants/errorMessages";
 import { IUserRepository } from "../../../domain/interfaces/repositories/User/IUserRepository";
 import { ITeamEntity } from "../../../domain/entities/Team/ITeamEntity";
 import { ITeamMemberEntity } from "../../../domain/entities/TeamMember/ITeamMemberEntity";

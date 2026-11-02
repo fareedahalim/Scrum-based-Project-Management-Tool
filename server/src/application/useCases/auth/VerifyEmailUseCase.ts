@@ -1,4 +1,4 @@
-import { inject, injectable, injectAll } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { IVerifyEmailUseCase } from "../../interface/auth/IVerifyEmailUseCase";
 import { IOtpRepository } from "../../../domain/interfaces/repositories/Otp/IOtpRepository";
 import { IUserRepository } from "../../../domain/interfaces/repositories/User/IUserRepository";

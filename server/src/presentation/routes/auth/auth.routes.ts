@@ -1,11 +1,15 @@
 import Router from "express";
-import { env } from "../../../config/env";
 import { ROUTES } from "../../../shared/constant/routes";
-import { success } from "zod";
 import { validateRequest } from "../../middlewares/validator";
-import { forgotPasswordSchema, googleLoginSchema, loginSchema, registerSchema, resendOtpSchema, resetPasswordSchema, verifyEmailSchema, verifyResetOtpSchema } from "../../validation/auth.validation";
-import { authController, authMiddleware } from "../../DI/resolver";
-import { runInContext } from "node:vm";
+import {
+    forgotPasswordSchema,
+    loginSchema,
+    registerSchema,
+    resendOtpSchema,
+    resetPasswordSchema,
+    verifyEmailSchema,
+    verifyResetOtpSchema,
+} from "../../validation/auth.validation";import { authController, authMiddleware } from "../../DI/resolver";
 
 const router = Router();
 

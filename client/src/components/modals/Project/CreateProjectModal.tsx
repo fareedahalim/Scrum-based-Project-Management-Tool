@@ -1,18 +1,20 @@
+
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { createProjectSchema, type CreateProjectFormData } from "../../../lib/validations/project.schema";
+
+import {
+    createProjectSchema,
+    type CreateProjectFormData,
+} from "../../../lib/validations/project.schema";
+
 import { useCreateProject } from "../../../hooks/Project/ProjectHook";
-import { useGetTeams, useGetTeamMembers } from "../../../hooks/Team/TeamHook";
+
+import {
+    useGetTeams,
+    useGetTeamMembers,
+} from "../../../hooks/Team/TeamHook";
+
 import { useGetUsers } from "../../../hooks/User/UserHooks";
-
-// import { useCreateProject } from "../../hooks/Project/ProjectHook";
-// import { useGetTeams } from "../../hooks/Team/TeamHook";
-// import { useGetUsers } from "../../hooks/User/UserHook";
-
-// import {
-//     createProjectSchema,
-//     type CreateProjectFormData,
-// } from "../../validation/project.schema";
 
 interface CreateProjectModalProps {
     isOpen: boolean;
@@ -47,14 +49,14 @@ const CreateProjectModal = ({
 
     const [showAllMembers, setShowAllMembers] = useState(false);
 
-
-
+    // Fetch teams
     const {
         data: teams,
         isLoading: isTeamsLoading,
         isError: isTeamsError,
     } = useGetTeams();
 
+    // Fetch eligible project users
     const {
         data: usersResponse,
         isLoading: isUsersLoading,
@@ -64,16 +66,16 @@ const CreateProjectModal = ({
         limit: 100,
     });
 
+    // Fetch members of the currently selected team
     const {
         data: selectedTeamMembers,
         isLoading: isTeamMembersLoading,
+        isError: isTeamMembersError,
     } = useGetTeamMembers(formData.teamId);
-
-
 
     const users = usersResponse?.data ?? [];
 
-    // Only active, verified members can be assigned project roles.
+    // Only active, verified MEMBER users can be assigned project roles.
     const eligibleUsers = users.filter(
         (user) =>
             user.role === "MEMBER" &&
@@ -81,6 +83,7 @@ const CreateProjectModal = ({
             user.isEmailVerified
     );
 
+    // Update a form field
     const updateField = <K extends keyof CreateProjectFormData>(
         field: K,
         value: CreateProjectFormData[K]
@@ -96,6 +99,7 @@ const CreateProjectModal = ({
         }));
     };
 
+    // Reset the form when the modal closes
     useEffect(() => {
         if (!isOpen) {
             setFormData(initialFormData);
@@ -104,12 +108,54 @@ const CreateProjectModal = ({
         }
     }, [isOpen]);
 
+    // Remove additional-member selections that belong to the selected team.
+    // Wait until the selected team's member list has finished loading.
+    useEffect(() => {
+        if (
+            !formData.teamId ||
+            isTeamMembersLoading ||
+            isTeamMembersError
+        ) {
+            return;
+        }
+
+        const teamMemberIds = new Set(
+            (selectedTeamMembers ?? []).map((member) =>
+                String(member.userId)
+            )
+        );
+
+        setFormData((previous) => {
+            const currentIds = previous.additionalMemberIds ?? [];
+
+            const filteredIds = currentIds.filter(
+                (userId) => !teamMemberIds.has(String(userId))
+            );
+
+            if (filteredIds.length === currentIds.length) {
+                return previous;
+            }
+
+            return {
+                ...previous,
+                additionalMemberIds: filteredIds,
+            };
+        });
+    }, [
+        formData.teamId,
+        selectedTeamMembers,
+        isTeamMembersLoading,
+        isTeamMembersError,
+    ]);
+
     if (!isOpen) {
         return null;
     }
 
     const handleClose = () => {
-        if (createProjectMutation.isPending) return;
+        if (createProjectMutation.isPending) {
+            return;
+        }
 
         setFormData(initialFormData);
         setErrors({});
@@ -143,25 +189,65 @@ const CreateProjectModal = ({
         }
 
         if (isTeamsError || isUsersError) {
-            toast.error("Unable to load teams or users. Please try again.");
+            toast.error(
+                "Unable to load teams or users. Please try again."
+            );
             return;
         }
 
+        if (!formData.teamId) {
+            toast.error("Please select a project team.");
+            return;
+        }
+
+        if (isTeamMembersLoading) {
+            toast.error("Please wait for the team members to load.");
+            return;
+        }
+
+        if (isTeamMembersError) {
+            toast.error(
+                "Unable to load team members. Please try again."
+            );
+            return;
+        }
+
+        // Final safety check: do not submit team members as additional members.
+        const teamMemberIds = new Set(
+            (selectedTeamMembers ?? []).map((member) =>
+                String(member.userId)
+            )
+        );
+
+        const additionalMemberIds = (
+            result.data.additionalMemberIds ?? []
+        ).filter(
+            (userId) =>
+                !teamMemberIds.has(String(userId)) &&
+                userId !== result.data.productOwnerId &&
+                userId !== result.data.scrumMasterId
+        );
+
         const payload = {
             ...result.data,
-            startDate: new Date(result.data.startDate).toISOString(),
+            startDate: new Date(
+                result.data.startDate
+            ).toISOString(),
             endDate: result.data.endDate
                 ? new Date(result.data.endDate).toISOString()
                 : null,
-            additionalMemberIds: result.data.additionalMemberIds ?? [],
+            additionalMemberIds,
         };
 
         try {
             await createProjectMutation.mutateAsync(payload);
 
             toast.success("Project created successfully");
+
             setFormData(initialFormData);
             setErrors({});
+            setShowAllMembers(false);
+
             onClose();
         } catch (error: unknown) {
             const apiError = error as {
@@ -175,18 +261,20 @@ const CreateProjectModal = ({
 
             toast.error(
                 apiError.response?.data?.message ||
-                apiError.response?.data?.error ||
-                "Failed to create project"
+                    apiError.response?.data?.error ||
+                    "Failed to create project"
             );
         }
     };
 
+    // IDs of users who already belong to the selected team
     const selectedTeamMemberIds = new Set(
         (selectedTeamMembers ?? []).map((member) =>
             String(member.userId)
         )
     );
 
+    // Exclude team members, Product Owner, and Scrum Master
     const availableAdditionalMembers = eligibleUsers.filter(
         (user) =>
             !selectedTeamMemberIds.has(String(user._id)) &&
@@ -203,6 +291,7 @@ const CreateProjectModal = ({
                         <h2 className="text-xl font-semibold text-gray-900">
                             Create Project
                         </h2>
+
                         <p className="mt-1 text-sm text-gray-500">
                             Set up a project and assign its team and Scrum roles.
                         </p>
@@ -226,6 +315,7 @@ const CreateProjectModal = ({
                             <label className="mb-2 block text-sm font-medium text-gray-700">
                                 Project Name *
                             </label>
+
                             <input
                                 type="text"
                                 value={formData.name}
@@ -235,6 +325,7 @@ const CreateProjectModal = ({
                                 placeholder="Food Delivery App"
                                 className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-black"
                             />
+
                             {errors.name && (
                                 <p className="mt-1 text-xs text-red-600">
                                     {errors.name}
@@ -246,6 +337,7 @@ const CreateProjectModal = ({
                             <label className="mb-2 block text-sm font-medium text-gray-700">
                                 Project Key *
                             </label>
+
                             <input
                                 type="text"
                                 value={formData.key}
@@ -259,6 +351,7 @@ const CreateProjectModal = ({
                                 maxLength={10}
                                 className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm uppercase outline-none focus:border-black"
                             />
+
                             {errors.key && (
                                 <p className="mt-1 text-xs text-red-600">
                                     {errors.key}
@@ -272,6 +365,7 @@ const CreateProjectModal = ({
                         <label className="mb-2 block text-sm font-medium text-gray-700">
                             Description *
                         </label>
+
                         <textarea
                             value={formData.description}
                             onChange={(event) =>
@@ -282,6 +376,7 @@ const CreateProjectModal = ({
                             maxLength={500}
                             className="w-full resize-y rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-black"
                         />
+
                         {errors.description && (
                             <p className="mt-1 text-xs text-red-600">
                                 {errors.description}
@@ -295,6 +390,7 @@ const CreateProjectModal = ({
                             <label className="mb-2 block text-sm font-medium text-gray-700">
                                 Priority *
                             </label>
+
                             <select
                                 value={formData.priority}
                                 onChange={(event) =>
@@ -316,6 +412,7 @@ const CreateProjectModal = ({
                             <label className="mb-2 block text-sm font-medium text-gray-700">
                                 Start Date *
                             </label>
+
                             <input
                                 type="date"
                                 value={formData.startDate}
@@ -324,6 +421,7 @@ const CreateProjectModal = ({
                                 }
                                 className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-black"
                             />
+
                             {errors.startDate && (
                                 <p className="mt-1 text-xs text-red-600">
                                     {errors.startDate}
@@ -335,6 +433,7 @@ const CreateProjectModal = ({
                             <label className="mb-2 block text-sm font-medium text-gray-700">
                                 End Date
                             </label>
+
                             <input
                                 type="date"
                                 min={formData.startDate || undefined}
@@ -344,6 +443,7 @@ const CreateProjectModal = ({
                                 }
                                 className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-black"
                             />
+
                             {errors.endDate && (
                                 <p className="mt-1 text-xs text-red-600">
                                     {errors.endDate}
@@ -376,8 +476,12 @@ const CreateProjectModal = ({
                                         ? "Loading teams..."
                                         : "Select a team"}
                                 </option>
+
                                 {teams?.map((team) => (
-                                    <option key={team.id} value={team.id}>
+                                    <option
+                                        key={team.id}
+                                        value={team.id}
+                                    >
                                         {team.name}
                                     </option>
                                 ))}
@@ -397,10 +501,14 @@ const CreateProjectModal = ({
                             <label className="mb-2 block text-sm font-medium text-gray-700">
                                 Product Owner *
                             </label>
+
                             <select
                                 value={formData.productOwnerId}
                                 onChange={(event) =>
-                                    updateField("productOwnerId", event.target.value)
+                                    updateField(
+                                        "productOwnerId",
+                                        event.target.value
+                                    )
                                 }
                                 disabled={isUsersLoading || isUsersError}
                                 className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-black disabled:bg-gray-100"
@@ -410,12 +518,17 @@ const CreateProjectModal = ({
                                         ? "Loading users..."
                                         : "Select Product Owner"}
                                 </option>
+
                                 {eligibleUsers.map((user) => (
-                                    <option key={user._id} value={user._id}>
+                                    <option
+                                        key={user._id}
+                                        value={user._id}
+                                    >
                                         {user.firstName} {user.lastName} ({user.email})
                                     </option>
                                 ))}
                             </select>
+
                             {errors.productOwnerId && (
                                 <p className="mt-1 text-xs text-red-600">
                                     {errors.productOwnerId}
@@ -427,10 +540,14 @@ const CreateProjectModal = ({
                             <label className="mb-2 block text-sm font-medium text-gray-700">
                                 Scrum Master *
                             </label>
+
                             <select
                                 value={formData.scrumMasterId}
                                 onChange={(event) =>
-                                    updateField("scrumMasterId", event.target.value)
+                                    updateField(
+                                        "scrumMasterId",
+                                        event.target.value
+                                    )
                                 }
                                 disabled={isUsersLoading || isUsersError}
                                 className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-black disabled:bg-gray-100"
@@ -440,17 +557,22 @@ const CreateProjectModal = ({
                                         ? "Loading users..."
                                         : "Select Scrum Master"}
                                 </option>
+
                                 {eligibleUsers
                                     .filter(
                                         (user) =>
                                             user._id !== formData.productOwnerId
                                     )
                                     .map((user) => (
-                                        <option key={user._id} value={user._id}>
+                                        <option
+                                            key={user._id}
+                                            value={user._id}
+                                        >
                                             {user.firstName} {user.lastName} ({user.email})
                                         </option>
                                     ))}
                             </select>
+
                             {errors.scrumMasterId && (
                                 <p className="mt-1 text-xs text-red-600">
                                     {errors.scrumMasterId}
@@ -463,10 +585,15 @@ const CreateProjectModal = ({
                     <div>
                         <button
                             type="button"
-                            onClick={() => setShowAllMembers((previous) => !previous)}
+                            onClick={() =>
+                                setShowAllMembers((previous) => !previous)
+                            }
                             className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
                         >
-                            {showAllMembers ? "Hide" : "Add"} additional project members (optional)
+                            {showAllMembers
+                                ? "Hide"
+                                : "Add"}{" "}
+                            additional project members (optional)
                         </button>
 
                         {showAllMembers && (
@@ -479,6 +606,10 @@ const CreateProjectModal = ({
                                     <p className="text-sm text-gray-500">
                                         Loading team members...
                                     </p>
+                                ) : isTeamMembersError ? (
+                                    <p className="text-sm text-red-600">
+                                        Failed to load team members. Please try again.
+                                    </p>
                                 ) : availableAdditionalMembers.length === 0 ? (
                                     <p className="text-sm text-gray-500">
                                         No additional members available.
@@ -486,7 +617,9 @@ const CreateProjectModal = ({
                                 ) : (
                                     availableAdditionalMembers.map((user) => {
                                         const selected =
-                                            formData.additionalMemberIds?.includes(user._id) ?? false;
+                                            formData.additionalMemberIds?.includes(
+                                                user._id
+                                            ) ?? false;
 
                                         return (
                                             <label
@@ -501,12 +634,17 @@ const CreateProjectModal = ({
                                                             formData.additionalMemberIds ?? [];
 
                                                         const next = event.target.checked
-                                                            ? [...current, user._id]
+                                                            ? current.includes(user._id)
+                                                                ? current
+                                                                : [...current, user._id]
                                                             : current.filter(
                                                                 (id) => id !== user._id
                                                             );
 
-                                                        updateField("additionalMemberIds", next);
+                                                        updateField(
+                                                            "additionalMemberIds",
+                                                            next
+                                                        );
                                                     }}
                                                     className="rounded border-gray-300"
                                                 />

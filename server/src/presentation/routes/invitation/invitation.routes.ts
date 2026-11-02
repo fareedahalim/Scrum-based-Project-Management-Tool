@@ -2,7 +2,6 @@ import { Router } from "express";
 import { authMiddleware, invitationController } from "../../DI/resolver";
 import { acceptInvitationSchema, createInvitationSchema } from "../../validation/invitation.validation";
 import { validateRequest } from "../../middlewares/validator";
-import { InvitationController } from "../../controllers/invitation/InvitationController";
 import { ROUTES } from "../../../shared/constant/routes";
 
 

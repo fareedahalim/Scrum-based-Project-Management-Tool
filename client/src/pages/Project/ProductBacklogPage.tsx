@@ -1,6 +1,7 @@
 
-import {useEffect,
-        useState,
+import {
+    useEffect,
+    useState,
     type FormEvent,
 } from "react";
 import { useSelector } from "react-redux";
@@ -210,15 +211,15 @@ export default function ProductBacklogPage() {
 
     const [search, setSearch] = useState("");
 
-const [debouncedSearch, setDebouncedSearch] = useState("");
+    const [debouncedSearch, setDebouncedSearch] = useState("");
 
-useEffect(() => {
-    const timer = setTimeout(() => {
-        setDebouncedSearch(search.trim());
-    }, 300);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedSearch(search.trim());
+        }, 300);
 
-    return () => clearTimeout(timer);
-}, [search]);
+        return () => clearTimeout(timer);
+    }, [search]);
 
     const { projectId = "" } = useParams<{
         projectId: string;
@@ -265,11 +266,11 @@ useEffect(() => {
         error: storiesError,
         refetch: refetchStories,
     } = useGetStoriesByProject(projectId, {
-    search: debouncedSearch || undefined,
-    includeArchived: false,
-    page: 1,
-    limit: 100,
-});
+        search: debouncedSearch || undefined,
+        includeArchived: false,
+        page: 1,
+        limit: 100,
+    });
     const createEpicMutation = useCreateEpic(projectId);
     const updateEpicMutation = useUpdateEpic(projectId);
     const archiveEpicMutation = useArchiveEpic(projectId);
@@ -350,7 +351,7 @@ useEffect(() => {
         0,
     );
 
-const normalizedSearch = debouncedSearch.toLowerCase();
+    const normalizedSearch = debouncedSearch.toLowerCase();
 
     const visibleEpics = allEpics.filter((epic) => {
         if (!normalizedSearch) {
@@ -785,38 +786,59 @@ const normalizedSearch = debouncedSearch.toLowerCase();
         <div className="space-y-6">
             {/* Breadcrumb and page heading */}
             <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
+                {/* Breadcrumb and page heading */}
                 <div>
-                    <Link
-                        to={`/projects/${projectId}`}
-                        className="text-sm text-slate-500 hover:text-slate-900"
-                    >
-                        Projects
-                    </Link>
+                    <div className="flex flex-wrap items-center gap-2 text-sm">
+                        <Link
+                            to={`/projects/${projectId}`}
+                            className="text-slate-500 hover:text-slate-900"
+                        >
+                            Projects
+                        </Link>
 
-                    <p className="mt-2 text-sm font-medium text-slate-500">
-                        {projectData?.name ?? "Project"}
-                    </p>
+                        <span className="text-slate-300">/</span>
 
-                    <h1 className="mt-1 text-2xl font-bold text-slate-900">
+                        <span className="text-slate-500">
+                            {projectData?.name ?? "Project"}
+                        </span>
+
+                        <span className="text-slate-300">/</span>
+
+                        <span className="font-medium text-slate-700">
+                            Product Backlog
+                        </span>
+                    </div>
+
+                    <h1 className="mt-3 text-2xl font-bold text-slate-900">
                         Product Backlog
                     </h1>
 
                     <p className="mt-1 text-sm text-slate-500">
-                        Manage epics and user stories before sprint
-                        planning.
+                        Manage epics and user stories before sprint planning.
                     </p>
                 </div>
 
-                {canManageBacklog && (
-                    <button
-                        type="button"
-                        onClick={openCreateForm}
-                        className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-slate-700"
+                {/* Action buttons */}
+                <div className="flex flex-wrap items-center gap-2">
+                    <Link
+                        to={`/projects/${projectId}/backlog/review`}
+                        className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
                     >
-                        <Plus className="h-4 w-4" />
-                        Create Epic
-                    </button>
-                )}
+                        <ClipboardCheck className="h-4 w-4" />
+                        Review backlog
+                    </Link>
+
+                    {canManageBacklog && (
+                        <button
+                            type="button"
+                            onClick={openCreateForm}
+                            className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-slate-700"
+                        >
+                            <Plus className="h-4 w-4" />
+                            Create Epic
+                        </button>
+                    )}
+                </div>
             </div>
 
             {isAdmin && !isProductOwner && (

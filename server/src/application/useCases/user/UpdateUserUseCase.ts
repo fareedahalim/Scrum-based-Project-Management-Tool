@@ -1,5 +1,4 @@
 import { inject, injectable } from "tsyringe";
-import { IUpdateOrganizationUseCase } from "../../interface/organization/IUpdateOrganizationUseCase";
 import { IUpdateUserUseCase } from "../../interface/user/IUpdateUserUseCase";
 import { IUserRepository } from "../../../domain/interfaces/repositories/User/IUserRepository";
 import { IUserEntity } from "../../../domain/entities/User/IUserEntity";

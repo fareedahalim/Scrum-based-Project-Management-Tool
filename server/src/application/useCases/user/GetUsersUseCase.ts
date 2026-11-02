@@ -3,7 +3,6 @@ import { inject, injectable } from "tsyringe";
 import { IGetUsersUseCase } from "../../interface/user/IGetUsersUseCase";
 import { IUserRepository } from "../../../domain/interfaces/repositories/User/IUserRepository";
 import type { UserSearchParams } from "../../../domain/interfaces/repositories/User/IUserRepository";
-import { UserResponseDTO } from "../../dtos/user/responseDTOs/UserResponseDTO";
 import { UserMapper } from "../../../infrastructure/mappers/UserMapper";
 
 @injectable()

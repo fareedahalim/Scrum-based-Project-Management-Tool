@@ -56,15 +56,7 @@ app.use(env.PROJECT_API_PREFIX,projectRoutes)
 app.use(env.EPIC_API_PREFIX,epicRoutes)
 console.log("Epic routes mounted at:", env.EPIC_API_PREFIX);
 app.use(env.STORY_API_PREFIX,storyRoutes)
-console.log(
-    "Registered Epic routes:",
-    epicRoutes.stack
-        .filter((layer: any) => layer.route)
-        .map((layer: any) => ({
-            path: layer.route.path,
-            methods: Object.keys(layer.route.methods),
-        }))
-);
+
 
 app.use(errorHandler);
 
