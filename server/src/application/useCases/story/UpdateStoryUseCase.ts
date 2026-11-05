@@ -15,6 +15,10 @@ import { ProjectScrumRole } from "../../../domain/enums/ProjectScrumRole";
 import { ProjectMemberStatus } from "../../../domain/enums/ProjectMemberStatus";
 import { ProjectPriority } from "../../../domain/enums/ProjectPriority";
 import { StoryStatus } from "../../../domain/enums/StoryStatus";
+import { ISocketService } from "../../../domain/interfaces/services/ISocketService";
+import { INotificationRepository } from "../../../domain/interfaces/repositories/Notification/INotificationRepository";
+import { NotificationType } from "../../../domain/entities/Notification/INotificationEntity";
+import { NotificationEventType } from "../../../domain/enums/NotifictionEventType";
 
 @injectable()
 export class UpdateStoryUseCase implements IUpdateStoryUseCase {
@@ -30,7 +34,13 @@ export class UpdateStoryUseCase implements IUpdateStoryUseCase {
 
         @inject("IProjectMemberRepository")
         private _projectMemberRepository: IProjectMemberRepository,
-    ) {}
+
+        @inject("ISocketService")
+        private _socketService: ISocketService,
+
+        @inject("INotificationRepository")
+        private _notificationRepository: INotificationRepository,
+    ) { }
 
     async execute(
         projectId: string,
@@ -38,14 +48,12 @@ export class UpdateStoryUseCase implements IUpdateStoryUseCase {
         data: UpdateStoryDTO,
         updatedBy: string,
     ): Promise<IStoryEntity> {
-        // 1. Find the story.
         const story = await this._storyRepository.findById(storyId);
 
         if (!story) {
             throw new Error("Story not found.");
         }
 
-        // 2. Verify project ownership.
         if (story.projectId !== projectId) {
             throw new Error("Story does not belong to this project.");
         }
@@ -67,7 +75,6 @@ export class UpdateStoryUseCase implements IUpdateStoryUseCase {
             );
         }
 
-        // 4. Archived stories cannot be updated.
         if (story.isArchived) {
             throw new Error("Cannot update an archived story.");
         }
@@ -134,9 +141,7 @@ export class UpdateStoryUseCase implements IUpdateStoryUseCase {
             updates.labels = data.labels.map((label) => label.trim());
         }
 
-        // 6. Validate the complete story before allowing READY.
-        // Also validate an existing READY story when it is edited
-        // without changing its status.
+
         const isBeingMarkedReady =
             data.status === StoryStatus.READY ||
             (data.status === undefined &&
@@ -155,28 +160,28 @@ export class UpdateStoryUseCase implements IUpdateStoryUseCase {
             const acceptanceCriteria =
                 updates.acceptanceCriteria ?? story.acceptanceCriteria;
 
-            // Title.
+
             if (!title.trim()) {
                 throw new Error(
                     "A title is required for a READY story.",
                 );
             }
 
-            // Description.
+
             if (!description.trim()) {
                 throw new Error(
                     "A description is required for a READY story.",
                 );
             }
 
-            // Priority.
+
             if (!Object.values(ProjectPriority).includes(priority)) {
                 throw new Error(
                     "A valid priority is required for a READY story.",
                 );
             }
 
-            // Story points.
+
             const validStoryPoints = [1, 2, 3, 5, 8, 13, 21];
 
             if (
@@ -188,7 +193,7 @@ export class UpdateStoryUseCase implements IUpdateStoryUseCase {
                 );
             }
 
-            // Acceptance criteria.
+
             if (
                 !Array.isArray(acceptanceCriteria) ||
                 acceptanceCriteria.length === 0
@@ -211,7 +216,6 @@ export class UpdateStoryUseCase implements IUpdateStoryUseCase {
             }
         }
 
-        // 7. Verify the project and epic.
         const project = await this._projectRepository.findById(
             story.projectId,
         );
@@ -242,6 +246,9 @@ export class UpdateStoryUseCase implements IUpdateStoryUseCase {
         updates.updatedBy = updatedBy;
         updates.updatedAt = new Date();
 
+        const isStoryMarkedReady =
+            story.status === StoryStatus.DRAFT &&
+            updates.status === StoryStatus.READY;
         const updatedStory = await this._storyRepository.updateStory(
             storyId,
             updates,
@@ -250,6 +257,36 @@ export class UpdateStoryUseCase implements IUpdateStoryUseCase {
         if (!updatedStory) {
             throw new Error("Failed to update story.");
         }
+
+        if (isStoryMarkedReady) {
+    const projectMembers =
+        await this._projectMemberRepository.getMembersByProject(projectId);
+
+    const scrumMaster = projectMembers.find(
+        (member) =>
+            member.scrumRole === ProjectScrumRole.SCRUM_MASTER
+    );
+
+    if (scrumMaster) {
+        // 1. Prepare the notification.
+        const notification = await this._notificationRepository.createNotification({
+            recipientId: scrumMaster.userId,
+            senderId: updatedBy,
+            eventType: NotificationEventType.STORY_READY,
+            message: `The story "${updatedStory.title}" is ready for sprint planning.`,
+            resourceId: updatedStory._id,
+            resourceType: NotificationType.STORY,
+            isRead: false,
+            createdAt: new Date(),
+        });
+
+        this._socketService.emitToUser(
+            scrumMaster.userId,
+            "notification:story-ready",
+            notification
+        );
+    }
+}
 
         return updatedStory;
     }

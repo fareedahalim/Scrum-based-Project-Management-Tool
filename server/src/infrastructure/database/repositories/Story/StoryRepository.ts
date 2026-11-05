@@ -9,7 +9,7 @@ import { StoryModel } from "../../models/Story/StoryModel";
 import { StoryMapper } from "../../../mappers/StoryMapper";
 
 const escapeRegex = (value: string): string => {
-    return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 };
 
 
@@ -54,114 +54,114 @@ export class StoryRepository implements IStoryRepository {
     return doc ? StoryMapper.toEntity(doc) : null;
   }
 
- 
-async getStoriesByProject(
+
+  async getStoriesByProject(
     projectId: string,
     filters: StoryFilter = {},
-): Promise<PaginatedStories> {
+  ): Promise<PaginatedStories> {
     const {
-        search,
-        status,
-        epicId,
-        includeArchived = false,
+      search,
+      status,
+      epicId,
+      includeArchived = false,
     } = filters;
 
     const page = Math.max(
-        1,
-        Math.floor(filters.page ?? 1),
+      1,
+      Math.floor(filters.page ?? 1),
     );
 
     const limit = Math.min(
-        100,
-        Math.max(1, Math.floor(filters.limit ?? 10)),
+      100,
+      Math.max(1, Math.floor(filters.limit ?? 10)),
     );
 
-   const mongoFilter: Record<string, unknown> = {
-    projectId,
-};
+    const mongoFilter: Record<string, unknown> = {
+      projectId,
+    };
 
 
     // Archived stories are excluded by default.
     if (!includeArchived) {
-        mongoFilter.isArchived = false;
+      mongoFilter.isArchived = false;
     }
 
     // Apply an optional story status filter.
     if (status) {
-        mongoFilter.status = status;
+      mongoFilter.status = status;
     }
 
     // Apply an optional epic filter.
     if (epicId) {
-        mongoFilter.epicId = epicId;
+      mongoFilter.epicId = epicId;
     }
 
     const trimmedSearch = search?.trim();
 
     if (trimmedSearch) {
-        const searchRegex = new RegExp(
-            escapeRegex(trimmedSearch),
-            "i",
-        );
+      const searchRegex = new RegExp(
+        escapeRegex(trimmedSearch),
+        "i",
+      );
 
-        // Find non-archived epics matching the search.
-        const matchingEpics = await EpicModel.find({
-            projectId,
-            isArchived: false,
-            $or: [
-                { name: searchRegex },
-                { key: searchRegex },
-                { description: searchRegex },
-            ],
-        })
-            .select("_id")
-            .exec();
+      // Find non-archived epics matching the search.
+      const matchingEpics = await EpicModel.find({
+        projectId,
+        isArchived: false,
+        $or: [
+          { name: searchRegex },
+          { key: searchRegex },
+          { description: searchRegex },
+        ],
+      })
+        .select("_id")
+        .exec();
 
-        const matchingEpicIds = matchingEpics.map(
-            (epic) => epic._id,
-        );
+      const matchingEpicIds = matchingEpics.map(
+        (epic) => epic._id,
+      );
 
-        // Match story fields OR stories belonging to a
-        // matching epic.
-        mongoFilter.$or = [
-            { title: searchRegex },
-            { key: searchRegex },
-            { description: searchRegex },
-            { labels: searchRegex },
-            ...(matchingEpicIds.length > 0
-                ? [{ epicId: { $in: matchingEpicIds } }]
-                : []),
-        ];
+      // Match story fields OR stories belonging to a
+      // matching epic.
+      mongoFilter.$or = [
+        { title: searchRegex },
+        { key: searchRegex },
+        { description: searchRegex },
+        { labels: searchRegex },
+        ...(matchingEpicIds.length > 0
+          ? [{ epicId: { $in: matchingEpicIds } }]
+          : []),
+      ];
     }
 
     const skip = (page - 1) * limit;
 
     const [docs, totalStories] = await Promise.all([
-        StoryModel.find(mongoFilter)
-            .sort({ createdAt: -1, _id: -1 })
-            .skip(skip)
-            .limit(limit)
-            .exec(),
+      StoryModel.find(mongoFilter)
+        .sort({ createdAt: -1, _id: -1 })
+        .skip(skip)
+        .limit(limit)
+        .exec(),
 
-        StoryModel.countDocuments(mongoFilter).exec(),
+      StoryModel.countDocuments(mongoFilter).exec(),
     ]);
 
     const totalPages = Math.ceil(totalStories / limit);
 
     return {
-        stories: docs.map((doc) =>
-            StoryMapper.toEntity(doc),
-        ),
-        pagination: {
-            page,
-            limit,
-            totalStories,
-            totalPages,
-            hasNextPage: page < totalPages,
-            hasPreviousPage: page > 1 && totalPages > 0,
-        },
+      stories: docs.map((doc) =>
+        StoryMapper.toEntity(doc),
+      ),
+      pagination: {
+        page,
+        limit,
+        totalStories,
+        totalPages,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1 && totalPages > 0,
+      },
     };
-}
+  }
 
 
   async getStoriesByEpic(
@@ -253,11 +253,11 @@ async getStoriesByProject(
 
     return doc ? StoryMapper.toEntity(doc) : null;
   }
-  
-// userstory with point 3 created today
 
-// async getStoryWithStoryPoint(projrctId): Promise<IStroyEnitity>{
-//   // const story = await StoryModel.find(projectId).D
-// const res = await storyModel.findAll(story._id,{stroyPoint:3}).Date.
-// }
+  // userstory with point 3 created today
+
+  // async getStoryWithStoryPoint(projrctId): Promise<IStroyEnitity>{
+  //   // const story = await StoryModel.find(projectId).D
+  // const res = await storyModel.findAll(story._id,{stroyPoint:3}).Date.
+  // }
 }

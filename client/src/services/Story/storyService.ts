@@ -110,6 +110,16 @@ export const getStoriesByEpic = async (
     return response.data.data;
 };
 
+export const getStoryById = async (
+    storyId: string
+): Promise<Story> => {
+    const response = await AxiosInstance.get(
+        API_ROUTES.STORY.GET_STORY_BY_ID(storyId)
+    );
+
+    return response.data.data;
+};
+
 export const createStory = async (
     projectId: string,
     payload: CreateStoryPayload,

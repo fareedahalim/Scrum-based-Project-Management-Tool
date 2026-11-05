@@ -9,7 +9,8 @@ import { TeamController } from "../controllers/team/TeamController";
 import { ProjectController } from "../controllers/project/ProjectController";
 import { StoryController } from "../controllers/story/StoryController";
 import { EpicController } from "../controllers/epic/EpicController";
-
+import { NotificationController } from "../controllers/notification/NotificationController";
+import { SprintPlanningMeetingController } from "../controllers/meeting/sprintPlanningMeetingController";
 ContainerSetup.registerAll();
 
 export const authController = container.resolve(AuthController);
@@ -21,3 +22,5 @@ export const teamController = container.resolve(TeamController);
 export const projectController = container.resolve(ProjectController);
 export const storyController = container.resolve(StoryController);
 export const epicController = container.resolve(EpicController);
+export const notificationController = container.resolve(NotificationController);
+export const sprintPlanningMeetingController = container.resolve(SprintPlanningMeetingController);

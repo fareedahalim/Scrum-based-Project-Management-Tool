@@ -71,6 +71,7 @@ export const ROUTES = {
         GET_STORIES_BY_EPIC: "/projects/:projectId/epics/:epicId/stories",
         UPDATE_STORY: "/projects/:projectId/stories/:storyId",
         ARCHIVE_STORY: "/projects/:projectId/stories/:storyId/archive",
+        GET_STORY_BY_ID: "/stories/:storyId",
     },
 
     EPIC: {
@@ -79,5 +80,16 @@ export const ROUTES = {
         UPDATE_EPIC: "/projects/:projectId/epics/:epicId",
         ARCHIVE_EPIC: "/projects/:projectId/epics/:epicId/archive",
     },
+
+    NOTIFICATION: {
+        GET_NOTIFICATIONS: "/",
+        MARK_AS_READ: "/:notificationId/read",
+        MARK_ALL_AS_READ: "/read-all",
+
+    },
+
+    MEETING: {
+    CREATE_SPRINT_PLANNING_MEETING: "/projects/:projectId/meetings/sprint-planning",
+},
 
 }

@@ -16,6 +16,7 @@ import { IUpdateStoryUseCase } from "../../../application/interface/story/IUpdat
 import { IArchiveStoryUseCase } from "../../../application/interface/story/IArchiveStoryUseCase";
 import { IGetStoriesByProjectUseCase } from "../../../application/interface/story/IGetStoriesByProjectUseCase";
 import { IGetStoriesByEpicUseCase } from "../../../application/interface/story/IGetStoriesByEpicUseCase";
+import { IGetStoryByIdUseCase } from "../../../application/interface/story/IGetStoryByIdUseCase";
 
 import { CreateStoryDTO } from "../../../application/dtos/story/requestDTOs/CreateStoryDTO";
 import { UpdateStoryDTO } from "../../../application/dtos/story/requestDTOs/UpdateStoryDTO";
@@ -38,8 +39,11 @@ export class StoryController {
         private getStoriesByProjectUseCase: IGetStoriesByProjectUseCase,
 
         @inject("IGetStoriesByEpicUseCase")
-        private getStoriesByEpicUseCase: IGetStoriesByEpicUseCase
-    ) {}
+        private getStoriesByEpicUseCase: IGetStoriesByEpicUseCase,
+
+        @inject("IGetStoryByIdUseCase")
+        private _getStoryByIdUseCase: IGetStoryByIdUseCase,
+    ) { }
 
     createStory = async (
         req: AuthRequest,
@@ -77,14 +81,14 @@ export class StoryController {
 
             const status =
                 message === STORY_ERRORS.STORY_PROJECT_NOT_FOUND ||
-                message === STORY_ERRORS.STORY_EPIC_NOT_FOUND
+                    message === STORY_ERRORS.STORY_EPIC_NOT_FOUND
                     ? HTTP_STATUS.NOT_FOUND
                     : message === STORY_ERRORS.STORY_TITLE_REQUIRED ||
-                      message === STORY_ERRORS.STORY_DESCRIPTION_REQUIRED ||
-                      message === STORY_ERRORS.STORY_POINTS_INVALID ||
-                      message === STORY_ERRORS.STORY_CREATE_UNDER_ARCHIVED_EPIC
-                    ? HTTP_STATUS.BAD_REQUEST
-                    : HTTP_STATUS.INTERNAL_SERVER_ERROR;
+                        message === STORY_ERRORS.STORY_DESCRIPTION_REQUIRED ||
+                        message === STORY_ERRORS.STORY_POINTS_INVALID ||
+                        message === STORY_ERRORS.STORY_CREATE_UNDER_ARCHIVED_EPIC
+                        ? HTTP_STATUS.BAD_REQUEST
+                        : HTTP_STATUS.INTERNAL_SERVER_ERROR;
 
             if (status === HTTP_STATUS.INTERNAL_SERVER_ERROR) {
                 logger.error("Failed to create story", {
@@ -141,13 +145,13 @@ export class StoryController {
                 message === STORY_ERRORS.STORY_NOT_FOUND
                     ? HTTP_STATUS.NOT_FOUND
                     : message === STORY_ERRORS.STORY_ALREADY_ARCHIVED ||
-                      message === STORY_ERRORS.STORY_TITLE_REQUIRED ||
-                      message === STORY_ERRORS.STORY_DESCRIPTION_REQUIRED ||
-                      message === STORY_ERRORS.STORY_POINTS_INVALID ||
-                      message === STORY_ERRORS.STORY_EPIC_PROJECT_MISMATCH ||
-                      message === STORY_ERRORS.STORY_ARCHIVED_EPIC_NOT_ALLOWED
-                    ? HTTP_STATUS.BAD_REQUEST
-                    : HTTP_STATUS.INTERNAL_SERVER_ERROR;
+                        message === STORY_ERRORS.STORY_TITLE_REQUIRED ||
+                        message === STORY_ERRORS.STORY_DESCRIPTION_REQUIRED ||
+                        message === STORY_ERRORS.STORY_POINTS_INVALID ||
+                        message === STORY_ERRORS.STORY_EPIC_PROJECT_MISMATCH ||
+                        message === STORY_ERRORS.STORY_ARCHIVED_EPIC_NOT_ALLOWED
+                        ? HTTP_STATUS.BAD_REQUEST
+                        : HTTP_STATUS.INTERNAL_SERVER_ERROR;
 
             if (status === HTTP_STATUS.INTERNAL_SERVER_ERROR) {
                 logger.error("Failed to update story", {
@@ -204,8 +208,8 @@ export class StoryController {
                 message === STORY_ERRORS.STORY_NOT_FOUND
                     ? HTTP_STATUS.NOT_FOUND
                     : message === STORY_ERRORS.STORY_ALREADY_ARCHIVED
-                    ? HTTP_STATUS.BAD_REQUEST
-                    : HTTP_STATUS.INTERNAL_SERVER_ERROR;
+                        ? HTTP_STATUS.BAD_REQUEST
+                        : HTTP_STATUS.INTERNAL_SERVER_ERROR;
 
             if (status === HTTP_STATUS.INTERNAL_SERVER_ERROR) {
                 logger.error("Failed to archive story", {
@@ -286,7 +290,7 @@ export class StoryController {
 
             const status =
                 message === STORY_ERRORS.STORY_PROJECT_NOT_FOUND ||
-                message === "Project not found."
+                    message === "Project not found."
                     ? HTTP_STATUS.NOT_FOUND
                     : HTTP_STATUS.INTERNAL_SERVER_ERROR;
 
@@ -361,4 +365,34 @@ export class StoryController {
             res.status(status).json({ message });
         }
     };
+
+    getStoryById = async (
+    req: AuthRequest,
+    res: Response
+): Promise<void> => {
+    const storyId = req.params.storyId as string;
+
+    try {
+const story = await this._getStoryByIdUseCase.execute(
+    storyId,
+    req.user!.userId
+);
+        res.status(HTTP_STATUS.OK).json({
+            message: MESSAGES.STORY.STORIES_FETCHED_SUCCESSFULLY,
+            data: story,
+        });
+    } catch (error) {
+        const message =
+            error instanceof Error
+                ? error.message
+                : STORY_ERRORS.STORIES_FETCH_FAILED;
+
+        const status =
+            message === "Story not found."
+                ? HTTP_STATUS.NOT_FOUND
+                : HTTP_STATUS.INTERNAL_SERVER_ERROR;
+
+        res.status(status).json({ message });
+    }
+};
 }

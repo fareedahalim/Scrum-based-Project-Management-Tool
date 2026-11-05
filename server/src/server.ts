@@ -19,6 +19,10 @@ import teamRoutes from './presentation/routes/team/team.routes'
 import projectRoutes from './presentation/routes/project/project.routes'
 import epicRoutes from './presentation/routes/epic/epic.routes'
 import storyRoutes from './presentation/routes/story/story.routes'
+import notificationRoutes from './presentation/routes/notification/notification.routes'
+import meetingRoutes from './presentation/routes/meeting/meeting.routes';
+
+import { initializeSocketServer } from './infrastructure/socket/socketServer';
 
 
 
@@ -56,6 +60,8 @@ app.use(env.PROJECT_API_PREFIX,projectRoutes)
 app.use(env.EPIC_API_PREFIX,epicRoutes)
 console.log("Epic routes mounted at:", env.EPIC_API_PREFIX);
 app.use(env.STORY_API_PREFIX,storyRoutes)
+app.use(env.NOTIFICATION_API_PREFIX,notificationRoutes)
+app.use(env.STORY_API_PREFIX, meetingRoutes);
 
 
 app.use(errorHandler);
@@ -63,6 +69,7 @@ app.use(errorHandler);
 const startServer = async () => {
   await connectMongoDB();
   const server = http.createServer(app);
+  const io = initializeSocketServer(server);
   server.listen(env.PORT, () => {
     logger.info(`server running on port ${env.APP_URL}`)
   })

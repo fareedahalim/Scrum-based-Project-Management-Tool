@@ -70,7 +70,13 @@ EPIC: {
     EPIC_ARCHIVED_SUCCESSFULLY: "Epic archived successfully",
 },
 
+NOTIFICATION: {
+    NOTIFICATION_CREATED_SUCCESSFULLY: "Notifications fetched successfully.",
+},
 
+MEETING: {
+    SPRINT_PLANNING_MEETING_SCHEDULED_SUCCESSFULLY:  "Sprint planning meeting scheduled successfully",
+}
 
 
 

@@ -107,6 +107,16 @@ import { IArchiveStoryUseCase } from "../../application/interface/story/IArchive
 import { ArchiveStoryUseCase } from "../../application/useCases/story/ArchiveStoryUseCase";
 import { GetStoriesByEpicUseCase } from "../../application/useCases/story/GetStoriesByEpicUseCase";
 import { IGetStoriesByEpicUseCase } from "../../application/interface/story/IGetStoriesByEpicUseCase";
+import { IGetNotificationsUseCase } from "../../application/interface/notification/IGetNotificationsUseCase";
+import { GetNotificationsUseCase } from "../../application/useCases/notification/GetNotificationUseCase";
+import { IMarkNotificationAsReadUseCase } from "../../application/interface/notification/IMarkNotificationAsReadUseCase";
+import { MarkNotificationAsReadUseCase } from "../../application/useCases/notification/MarkNotificationAsReadUseCase";
+import { IGetStoryByIdUseCase } from "../../application/interface/story/IGetStoryByIdUseCase";
+import { GetStoryByIdUseCase } from "../../application/useCases/story/GetStoryByIdUseCase";
+import { ICreateSprintPlanningUseCase } from "../../application/interface/meeting/ICreateSprintPlanningMeetingUseCase";
+import { CreateSprintPlanningMeetingUseCase } from "../../application/useCases/meeting/CreateSprintPlanningMeetingUseCase";
+import { IMarkAllNotificationsAsReadUseCase } from "../../application/interface/notification/IMarkAllNotificationsAsReadUseCase";
+import { MarkAllNotificationsAsReadUseCase } from "../../application/useCases/notification/MarkAllNotificationsAsReadUseCase";
 
 export class UseCaseModule {
     static registerModule(): void {
@@ -332,7 +342,7 @@ export class UseCaseModule {
             useClass: GetEpicsByProjectUseCase ,
         });
 
-        
+        //story
 
         container.register<IArchiveEpicUseCase>("IArchiveEpicUseCase", {
             useClass: ArchiveEpicUseCase,
@@ -353,11 +363,33 @@ export class UseCaseModule {
             useClass: GetStoriesByEpicUseCase,
         }); 
 
-
-
         container.register<IArchiveStoryUseCase>("IArchiveStoryUseCase", {
             useClass: ArchiveStoryUseCase,
         });
+
+        container.register<IGetStoryByIdUseCase>("IGetStoryByIdUseCase", {
+            useClass: GetStoryByIdUseCase,
+        });
+
+        //notification
+        container.register<IGetNotificationsUseCase>("IGetNotificationsUseCase", {
+            useClass: GetNotificationsUseCase,
+        });
+        
+        container.register<IMarkNotificationAsReadUseCase>("IMarkNotificationAsReadUseCase", {
+            useClass: MarkNotificationAsReadUseCase,
+        });
+        container.register<IMarkAllNotificationsAsReadUseCase>("IMarkAllNotificationsAsReadUseCase", {
+            useClass: MarkAllNotificationsAsReadUseCase,
+        });
+
+
+        ///meeting
+        container.register<ICreateSprintPlanningUseCase>("ICreateSprintPlanningUseCase", {
+            useClass: CreateSprintPlanningMeetingUseCase,
+        });
+
+        
 
 
 

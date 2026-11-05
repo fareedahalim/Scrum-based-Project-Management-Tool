@@ -52,6 +52,7 @@ import type {
     StoryPriority,
     StoryStatus,
 } from "../../services/Story/storyService";
+import ScheduleSprintPlanningModal from "../../components/modals/Meeting/ScheduleSprintPlanningModal";
 
 type ReadinessCheck = {
     id: string;
@@ -210,6 +211,7 @@ const getErrorMessage = (error: unknown): string => {
 export default function ProductBacklogPage() {
 
     const [search, setSearch] = useState("");
+    const [isMeetingModalOpen, setIsMeetingModalOpen] = useState(false);
 
     const [debouncedSearch, setDebouncedSearch] = useState("");
 
@@ -325,6 +327,9 @@ export default function ProductBacklogPage() {
 
     const isProductOwner =
         currentMembership?.scrumRole === "PRODUCT_OWNER";
+
+    const isScrumMaster =
+        currentMembership?.scrumRole === "SCRUM_MASTER";
 
     const isAdmin = currentUser?.role === "ADMIN";
 
@@ -820,6 +825,16 @@ export default function ProductBacklogPage() {
 
                 {/* Action buttons */}
                 <div className="flex flex-wrap items-center gap-2">
+                    {isScrumMaster && (
+                        <button
+                            type="button"
+                            onClick={() => setIsMeetingModalOpen(true)}
+                            className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+                        >
+                            <CalendarDays size={16} />
+                            Schedule Sprint Planning
+                        </button>
+                    )}
                     <Link
                         to={`/projects/${projectId}/backlog/review`}
                         className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
@@ -2057,8 +2072,16 @@ export default function ProductBacklogPage() {
                             to this review and are not persisted.
                         </p>
                     </div>
+
                 </div>
             )}
+            <ScheduleSprintPlanningModal
+                isOpen={isMeetingModalOpen}
+                onClose={() => setIsMeetingModalOpen(false)}
+                projectId={projectId}
+                readyStories={readyStories}
+                epics={allEpics}
+            />
         </div>
     );
 }

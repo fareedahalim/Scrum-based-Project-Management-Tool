@@ -40,7 +40,7 @@ export class CreateProjectUseCase implements ICreateProjectUseCase {
 
         @inject("IUserRepository")
         private readonly _userRepository: IUserRepository
-    ) {}
+    ) { }
 
     async execute(
         data: CreateProjectDTO,
@@ -211,31 +211,59 @@ export class CreateProjectUseCase implements ICreateProjectUseCase {
             );
         }
 
-        // 12. Find members already belonging to the selected team.
+        // 12. Find all members belonging to the selected team.
         const teamMemberIds =
             await this._teamMemberRepository.getAssignedUserIdsByTeam(
                 data.teamId
             );
 
-        const teamMemberIdSet = new Set(
-            teamMemberIds.map(String)
-        );
+        // 13. Track users who are already assigned to the project.
+        const assignedUserIds = new Set<string>([
+            data.productOwnerId,
+            data.scrumMasterId,
+        ]);
 
-        // 13. Add only additional users who are not already
-        // members of the selected team.
-        for (const userId of additionalMemberIds) {
-            if (teamMemberIdSet.has(String(userId))) {
+        // 14. Add all team members as developers,
+        // except Product Owner and Scrum Master.
+        for (const userId of teamMemberIds) {
+
+            const memberId = String(userId);
+
+            if (assignedUserIds.has(memberId)) {
                 continue;
             }
 
             await this._projectMemberRepository.addMember({
                 projectId: project._id,
-                userId,
+                userId: memberId,
                 scrumRole: ProjectScrumRole.DEVELOPER,
                 status: ProjectMemberStatus.ACTIVE,
                 assignedAt: now,
                 completedAt: null,
             });
+
+            assignedUserIds.add(memberId);
+        }
+
+        // 15. Add additional members who are not already assigned.
+        for (const userId of additionalMemberIds) {
+
+            const memberId = String(userId);
+
+            if (assignedUserIds.has(memberId)) {
+                continue;
+            }
+
+            await this._projectMemberRepository.addMember({
+                projectId: project._id,
+                userId: memberId,
+                scrumRole: ProjectScrumRole.DEVELOPER,
+                status: ProjectMemberStatus.ACTIVE,
+                assignedAt: now,
+                completedAt: null,
+            });
+
+            assignedUserIds.add(memberId);
         }
 
         // 14. Return the created project.

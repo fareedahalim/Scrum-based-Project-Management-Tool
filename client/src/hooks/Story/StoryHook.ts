@@ -10,6 +10,7 @@ import {
     createStory,
     getStoriesByEpic,
     getStoriesByProject,
+    getStoryById,
     updateStory,
     type CreateStoryPayload,
     type GetStoriesFilters,
@@ -48,6 +49,17 @@ export const useGetStoriesByEpic = (
         queryFn: () =>
             getStoriesByEpic(projectId, epicId, includeArchived),
         enabled: Boolean(projectId && epicId),
+    });
+};
+
+export const useGetStoryById = (
+    storyId: string,
+    enabled = true,
+) => {
+    return useQuery({
+        queryKey: ["story", storyId],
+        queryFn: () => getStoryById(storyId),
+        enabled: Boolean(storyId && enabled),
     });
 };
 

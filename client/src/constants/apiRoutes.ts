@@ -56,7 +56,7 @@ export const API_ROUTES = {
         DELETE_TEAM: (teamId: string) => `/teams/${teamId}`,
     },
 
-    
+
     PROJECT: {
         CREATE_PROJECT: "/projects",
         GET_PROJECTS: "/projects",
@@ -83,7 +83,7 @@ export const API_ROUTES = {
             `/projects/${projectId}/available-members`,
     },
 
-        EPIC: {
+    EPIC: {
         CREATE_EPIC: (projectId: string) =>
             `/projects/${projectId}/epics`,
 
@@ -97,7 +97,7 @@ export const API_ROUTES = {
             `/projects/${projectId}/epics/${epicId}/archive`,
     },
 
-    
+
     STORY: {
         CREATE_STORY: (projectId: string) =>
             `/projects/${projectId}/stories`,
@@ -119,7 +119,22 @@ export const API_ROUTES = {
             projectId: string,
             storyId: string
         ) => `/projects/${projectId}/stories/${storyId}/archive`,
+
+        GET_STORY_BY_ID: (storyId: string) =>
+            `/stories/${storyId}`,
     },
+
+    NOTIFICATION: {
+        GET_NOTIFICATIONS: "/notifications/",
+        MARK_AS_READ: (notificationId: string) =>
+            `/notifications/${notificationId}/read`,
+        MARK_ALL_AS_READ: "/notifications/read-all",
+    },
+
+    MEETING: {
+    CREATE_SPRINT_PLANNING_MEETING: (projectId: string) =>
+        `/projects/${projectId}/meetings/sprint-planning`,
+},
 
 
 

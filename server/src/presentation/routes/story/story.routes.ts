@@ -53,6 +53,13 @@ router.get(
     storyController.getStoriesByEpic
 );
 
+// Get Story By ID — active project members
+
+router.get(
+    ROUTES.STORY.GET_STORY_BY_ID,
+    authMiddleware.authenticate,
+    storyController.getStoryById
+);
 
 // Update Story — Product Owner only
 

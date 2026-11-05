@@ -1,0 +1,5 @@
+export enum NotificationEventType {
+    STORY_READY = "STORY_READY",
+    SPRINT_PLANNING_MEETING = "SPRINT_PLANNING_MEETING",
+
+}

@@ -23,11 +23,15 @@ import { IEpicRepository } from "../../domain/interfaces/repositories/Epic/IEpic
 import { EpicRepository } from "../../infrastructure/database/repositories/Epic/EpicRepository";
 import { IStoryRepository } from "../../domain/interfaces/repositories/Story/IStoryRepository";
 import { StoryRepository } from "../../infrastructure/database/repositories/Story/StoryRepository";
+import { INotificationRepository } from "../../domain/interfaces/repositories/Notification/INotificationRepository";
+import { NotificationRepository } from "../../infrastructure/database/repositories/Notification/NotificationRepository";
+import { ISprintPlanningMeetingRepository } from "../../domain/interfaces/repositories/Meeting/ISprintPlanningMeetingRepository";
+import { SprintPlanningMeetingRepository } from "../../infrastructure/database/repositories/Meeting/SprintPlanningMeetingRepository";
 
 export class RepositoryModule {
     static registerModules(): void {
 
-        container.register<IUserRepository>('IUserRepository',{
+        container.register<IUserRepository>('IUserRepository', {
             useClass: UserRepository
         })
 
@@ -35,46 +39,57 @@ export class RepositoryModule {
             useClass: OtpRedisRepository
         })
 
-        container.register<ITokenBlacklistRepository>('ITokenBlacklistRepository',{
+        container.register<ITokenBlacklistRepository>('ITokenBlacklistRepository', {
             useClass: RedisTokenBlacklistRepository
         })
-        container.register<IOrganizationRepository>('IOrganizationRepository',{
-            useClass: OrganizationRepository 
+        container.register<IOrganizationRepository>('IOrganizationRepository', {
+            useClass: OrganizationRepository
         })
 
-        container.register<IInvitationRedisRepository>('IInvitationRedisRepository',{
-            useClass:  InvitationRedisRepository
-        })
-        
-        container.register<IInvitationRepository>('IInvitationRepository',{
-            useClass:  InvitationRepository
+        container.register<IInvitationRedisRepository>('IInvitationRedisRepository', {
+            useClass: InvitationRedisRepository
         })
 
-        container.register<ITeamRepository>('ITeamRepository',{
-            useClass:  TeamRepository
+        container.register<IInvitationRepository>('IInvitationRepository', {
+            useClass: InvitationRepository
         })
 
-        container.register<ITeamMemberRepository>('ITeamMemberRepository',{
-            useClass:  TeamMemberRepository
+        container.register<ITeamRepository>('ITeamRepository', {
+            useClass: TeamRepository
         })
-       
-        container.register<IProjectRepository>('IProjectRepository',{
+
+        container.register<ITeamMemberRepository>('ITeamMemberRepository', {
+            useClass: TeamMemberRepository
+        })
+
+        container.register<IProjectRepository>('IProjectRepository', {
             useClass: ProjectRepository
         })
-        container.register<IProjectMemberRepository>('IProjectMemberRepository',{
+        container.register<IProjectMemberRepository>('IProjectMemberRepository', {
             useClass: ProjectMemberRepository
         })
 
-        container.register<IEpicRepository>('IEpicRepository',{
+        container.register<IEpicRepository>('IEpicRepository', {
             useClass: EpicRepository
         })
 
-        container.register<IStoryRepository>("IStoryRepository",{
+        container.register<IStoryRepository>("IStoryRepository", {
             useClass: StoryRepository
         })
-        
-        
 
-       
+        container.register<INotificationRepository>("INotificationRepository", {
+            useClass: NotificationRepository
+        })
+
+        //SprintPlanningMeetingRepository
+        container.register<ISprintPlanningMeetingRepository>("ISprintPlanningMeetingRepository", {
+            useClass: SprintPlanningMeetingRepository
+        })
+
+
+
+
+
+
     }
 }

@@ -58,6 +58,7 @@ const envSchema = z.object({
     PROJECT_API_PREFIX: z.string().trim().min(1),
     EPIC_API_PREFIX: z.string().trim().min(1),
     STORY_API_PREFIX: z.string().trim().min(1),
+    NOTIFICATION_API_PREFIX: z.string().trim().min(1),
 
 })
 

@@ -9,19 +9,21 @@ import { IJwtService } from "../../domain/interfaces/services/IJwtService";
 import { JwtService } from "../../infrastructure/service/JwtService";
 import { IGoogleAuthService } from "../../domain/interfaces/services/IGoogleAuthService";
 import { GoogleAuthService } from "../../infrastructure/service/GoogleAuthService";
+import { ISocketService } from "../../domain/interfaces/services/ISocketService";
+import { SocketService } from "../../infrastructure/service/SocketService";
 
 export class ServiceModule {
     static registerModule(): void {
 
-        container.register<IPasswordService>('IPasswordService',{
+        container.register<IPasswordService>('IPasswordService', {
             useClass: PasswordService
         })
 
-        container.register<IEmailService>('IEmailService',{
+        container.register<IEmailService>('IEmailService', {
             useClass: EmailService
         })
 
-        container.register<ITempUserStore>("ITempUserStore",{
+        container.register<ITempUserStore>("ITempUserStore", {
             useClass: RedisTempUserStore
         })
 
@@ -29,10 +31,14 @@ export class ServiceModule {
             useClass: JwtService
         })
 
-         container.register<IGoogleAuthService>('IGoogleAuthService',{
-            useClass:  GoogleAuthService
+        container.register<IGoogleAuthService>('IGoogleAuthService', {
+            useClass: GoogleAuthService
         })
 
+        container.registerSingleton<ISocketService>(
+            "ISocketService",
+            SocketService
+        );
 
 
     }
